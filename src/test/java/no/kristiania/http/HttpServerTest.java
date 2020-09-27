@@ -79,7 +79,11 @@ class HttpServerTest {
     @Test
     void shouldPostNewMember() throws IOException {
         HttpServer server = new HttpServer(10008);
-        HttpClient client = new HttpClient("localhost", 10008, "/api/newWorker","POST", "full_name=test&email_address=test@test.com");
+        HttpClient client = new HttpClient("localhost",
+                8080,
+                "./members",
+                "POST",
+                "full_name=test&email_address=test@test.com");
         assertEquals(200, client.getStatusCode());
         assertEquals(List.of("test"), server.getMemberNames());
     }
