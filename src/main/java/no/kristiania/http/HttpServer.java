@@ -11,7 +11,7 @@ import java.util.List;
 public class HttpServer {
 
     private File contentRoot;
-    private List<String> memberNames = new ArrayList<>();
+    private final List<String> memberNames = new ArrayList<>();
 
     public HttpServer(int port) throws IOException {
         ServerSocket serverSocket = new ServerSocket(port);
