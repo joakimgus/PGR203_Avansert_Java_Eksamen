@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.ProxySelector;
 import java.nio.file.Files;
 import java.util.Date;
 
@@ -74,5 +75,14 @@ class HttpServerTest {
         HttpClient client = new HttpClient("localhost", 10007, "/notFound.txt");
         assertEquals(404, client.getStatusCode());
     }
+/*
+    @Test
+    void shouldPostNewMember() throws IOException {
+        HttpServer server = new HttpServer(10008);
+        HttpClient client = new HttpClient("localhost", 10008, "/api/newWorker","POST", "full_name=test&email_address=test@test.com");
+        assertEquals(200, client.getStatusCode());
+        assertEquals(list.of("test"), server.getMemberNames());
+    }
 
+ */
 }
