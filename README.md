@@ -13,8 +13,12 @@ QueryString lar oss lese og bruke en sides querystring.
 
 <strong>Brukerguide</strong>
 
-Når webserveren har started opp, gå til "http://localhost:8080/index.html" i en nettleser, dette er startsiden for prosjektet. 
-Herfra kan du trykke på "Add new project member" for å komme til siden "http://localhost:8080/newWorker.html".
-På denne siden kan du legge til nye project members ved å fylle til navn og e-postaddresse, og deretter trykke på knappen "Add". 
-Når du har lagt til et eller flere project member(s) kan du navigere tilbake til "http://localhost:8080/index.html" ved å trykke på knappen "Return to front page".
+Når webserveren har startet opp, gå til "http://localhost:8080/index.html" i en nettleser, dette er startsiden for prosjektet. 
+<br>
+Herfra kan du trykke på <strong>"Add new project member"</strong> for å komme til siden "http://localhost:8080/newWorker.html".
+<br>
+På denne siden kan du legge til nye project members ved å fylle til navn og e-postaddresse, og deretter trykke på knappen <strong>"Add"</strong>.
+<br>
+Når du har lagt til et eller flere project member(s) kan du navigere tilbake til "http://localhost:8080/index.html" ved å trykke på knappen <strong>"Return to front page"</strong>.
+<br>
 På hovedsiden vil du nå se en liste over alle project members og dere e-postadresser. 
