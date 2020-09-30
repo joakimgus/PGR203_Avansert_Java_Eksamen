@@ -67,16 +67,6 @@ class HttpServerTest {
     }
 
     @Test
-    void shouldReturn404IfFileNotFound() throws IOException {
-        HttpServer server = new HttpServer(10007);
-        File contentRoot = new File("target/");
-        server.setContentRoot(contentRoot);
-
-        HttpClient client = new HttpClient("localhost", 10007, "/notFound.txt");
-        assertEquals(404, client.getStatusCode());
-    }
-
-    @Test
     void shouldPostNewMembers() throws IOException {
         HttpServer server = new HttpServer(10008);
         String requestBody = "full_name=test&email_address=test@test.com";
@@ -85,5 +75,12 @@ class HttpServerTest {
         assertEquals(List.of("test"), server.getMemberNames());
     }
 
-
+    @Test
+    void shouldDisplayExistingMembers() throws IOException {
+        HttpServer server = new HttpServer(10009);
+        server.getMemberNames().add("Test");
+        server.getEmailAddresses().add("test@test.com");
+        HttpClient client = new HttpClient("localhost", 10009, "/api/projectMembers");
+        assertEquals("<ol><li>Test</li></ol><ol><li>test@test.com</li></ol>", client.getResponseBody());
+    }
 }
