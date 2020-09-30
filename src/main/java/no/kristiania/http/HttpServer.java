@@ -19,31 +19,26 @@ public class HttpServer {
         // Opens a entry point to our program for network clients
         ServerSocket serverSocket = new ServerSocket(port);
 
-        // new Threads executes the code in a separate "thread", that is: In parallel
-        new Thread(() -> { // anonymous function with code that will be executed in parallel
+        // New Threads that executes code in a separate "thread"
+        new Thread(() -> {
             while (true) {
                 try {
-                    // accept waits for a client to try to connect - blocks
                     Socket clientSocket = serverSocket.accept();
                     handleRequest(clientSocket);
                 } catch (IOException e) {
-                    // If something went wrong - print out exception and try again
                     e.printStackTrace();
                 }
             }
         }).start(); // Start the threads, so the code inside executes without blocking the current thread
     }
 
-    // This code will be executed for each client
     private void handleRequest(Socket clientSocket) throws IOException {
         HttpMessage request = new HttpMessage(clientSocket);
         String requestLine = request.getStartLine();
         System.out.println(requestLine);
-        // Example "GET /echo?body=hello HTTP/1.1"
 
         String requestMethod = requestLine.split(" ")[0];
         String requestTarget = requestLine.split(" ")[1];
-        // Example "/echo?body=hello"
         String statusCode = "200";
         String body = "Hello <strong>World</strong>!";
 
@@ -68,14 +63,14 @@ public class HttpServer {
         if (requestTarget.equals("/api/projectMembers")) {
             body = "<ol>";
 
-            // foreach : member name
+            // For-each : member name
             for (String memberName : memberNames) {
                 body += "<li>" + memberName + "</li>";
             }
 
             body += "</ol><ol>";
 
-            // foreach : email address
+            // For-each : email address
             for ( String emailAddress : emailAddresses) {
 
                 // Used URLDecoder for fixing problem with %40 => @
@@ -84,7 +79,6 @@ public class HttpServer {
             body += "</ol>";
 
         } else if (questionPos != -1) {
-            // body=hello
             QueryString queryString = new QueryString(requestTarget.substring(questionPos+1));
             if (queryString.getParameter("status") != null) {
                 statusCode = queryString.getParameter("status");
@@ -115,11 +109,9 @@ public class HttpServer {
                     "Content-Length: " + file.length() + "\r\n" +
                     "Content-Type: " + contentType + "\r\n" +
                     "\r\n";
-            // Write the response back to the client
             clientSocket.getOutputStream().write(response.getBytes());
 
             new FileInputStream(file).transferTo(clientSocket.getOutputStream());
-            // TODO ? Fra forelesning   return;
         }
 
         String response = "HTTP/1.1 " + statusCode + " OK\r\n" +
@@ -128,7 +120,6 @@ public class HttpServer {
                 "\r\n" +
                 body;
 
-        // Write the response back to the client
         clientSocket.getOutputStream().write(response.getBytes());
     }
 

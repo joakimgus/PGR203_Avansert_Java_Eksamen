@@ -8,7 +8,7 @@ import java.util.Map;
 public class HttpMessage {
 
     private final Map<String, String> headers = new HashMap<>();
-    private String startLine;
+    private final String startLine;
     private String body;
 
     public HttpMessage(Socket socket) throws IOException {
@@ -32,9 +32,9 @@ public class HttpMessage {
         StringBuilder line = new StringBuilder();
         int c;
         while ((c = socket.getInputStream().read()) != -1) {
-            // each line ends with \r\n (CRLF - carriage return, line feed)
+            // Each line ends with \r\n (CRLF - carriage return, line feed)
             if (c == '\r') {
-                socket.getInputStream().read(); // read and ignore the following \n
+                socket.getInputStream().read(); // Read and ignore the following \n
                 break;
             }
             line.append((char)c);
@@ -43,16 +43,15 @@ public class HttpMessage {
     }
 
     static void readHeaders(Map<String, String> responseHeaders, Socket socket) throws IOException {
-        // After status line the response contains 0 or more response header
         String headerLine;
         while (!(headerLine = readLine(socket)).isEmpty()) {
-            // response header consists "name: value"
             int colonPos = headerLine.indexOf(':');
-            // parse header
+
+            // Parse header
             String headerName = headerLine.substring(0, colonPos);
             String headerValue = headerLine.substring(colonPos+1).trim();
 
-            // store headers
+            // Store headers
             responseHeaders.put(headerName, headerValue);
         }
     }

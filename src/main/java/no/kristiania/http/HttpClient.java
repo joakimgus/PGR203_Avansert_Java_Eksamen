@@ -7,51 +7,42 @@ import java.util.Map;
 public class HttpClient {
 
     private final HttpMessage httpMessage;
-    private int statusCode;
-    private Map<String, String> responseHeaders;
+    private final int statusCode;
+    private final Map<String, String> responseHeaders;
     String responseBody;
 
-    // Constructor - det som kalles når vi sier new
     public HttpClient(final String hostname, int port, final String requestTarget) throws IOException {
         this(hostname, port, requestTarget, "GET", null);
     }
 
-    // Constructor - det som kalles når vi sier new
     public HttpClient(final String hostname, int port, final String requestTarget, final String httpMethod, String requestBody) throws IOException {
-        // Connect til serven
+        // Connect to server
         Socket socket = new Socket(hostname, port);
 
         String contentLengthHeader = requestBody != null ? "Content-Length: " + requestBody.length() + "\r\n" : "";
 
-        // HTTP Request consists of request line + 0 or more request headers
-        //  request line consists of "verb" (GET, POST, PUT) request target ("/echo", "/echo?status=404"), protocol (HTTP/1.1)
         String request = httpMethod + " " + requestTarget + " HTTP/1.1\r\n" +
-                // request header consists of "name: value"
-                // header host brukes for å angi hostnavnet i URL
                 "Host: " + hostname + "\r\n" +
                 contentLengthHeader +
-                // request ends with empty line
+                // Request ends with empty line
                 "\r\n";
 
-        // send request to server
+        // Send request to server
         socket.getOutputStream().write(request.getBytes());
 
+        // Checks if body contains any bytes
         if (requestBody != null) {
             socket.getOutputStream().write(requestBody.getBytes());
         }
 
         httpMessage = new HttpMessage(socket);
 
-        // The first line in the response is called status line or response line
-        // response line consists of protocol ("HTTP/1.1") status code (200, 404, 401, 500) and status message
         String responseLine = httpMessage.getStartLine();
         String[] responseLineParts = responseLine.split(" ");
 
-        // Status code determines if it went ok (2xx) or not (4xx). (In addition 5xx: server error) 3xx
+        // Status code determines if it went ok or not.
         statusCode = Integer.parseInt(responseLineParts[1]);
-
         responseHeaders = httpMessage.getHeaders();
-
         responseBody = httpMessage.getBody();
     }
 
