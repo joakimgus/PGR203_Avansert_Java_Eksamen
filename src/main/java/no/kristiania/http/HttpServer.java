@@ -1,4 +1,4 @@
-package no.kristiania.innlevering2;
+package no.kristiania.http;
 
 import java.io.File;
 import java.io.FileInputStream;
