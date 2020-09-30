@@ -7,32 +7,43 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URLDecoder;
 
 public class HttpServer {
 
     private File contentRoot;
     private final List<String> memberNames = new ArrayList<>();
+    private final List<String> emailAddresses = new ArrayList<>();
 
     public HttpServer(int port) throws IOException {
+        // Opens a entry point to our program for network clients
         ServerSocket serverSocket = new ServerSocket(port);
 
-        new Thread(() -> {
+        // new Threads executes the code in a separate "thread", that is: In parallel
+        new Thread(() -> { // anonymous function with code that will be executed in parallel
             while (true) {
                 try {
+                    // accept waits for a client to try to connect - blocks
                     Socket clientSocket = serverSocket.accept();
                     handleRequest(clientSocket);
                 } catch (IOException e) {
+                    // If something went wrong - print out exception and try again
                     e.printStackTrace();
                 }
             }
-        }).start();
+        }).start(); // Start the threads, so the code inside executes without blocking the current thread
     }
 
+    // This code will be executed for each client
     private void handleRequest(Socket clientSocket) throws IOException {
-        String requestLine = HttpClient.readLine(clientSocket);
+        HttpMessage request = new HttpMessage(clientSocket);
+        String requestLine = request.getStartLine();
         System.out.println(requestLine);
+        // Example "GET /echo?body=hello HTTP/1.1"
 
+        String requestMethod = requestLine.split(" ")[0];
         String requestTarget = requestLine.split(" ")[1];
+        // Example "/echo?body=hello"
         String statusCode = "200";
         String body = "Hello <strong>World</strong>!";
 
@@ -40,7 +51,40 @@ public class HttpServer {
 
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
-        if (questionPos != -1) {
+        if (requestMethod.equals("POST")) {
+            QueryString queryString = new QueryString(request.getBody());
+            memberNames.add(queryString.getParameter("full_name"));
+            emailAddresses.add(queryString.getParameter("email_address"));
+            body = "Okay";
+
+            String response = "HTTP/1.1 200 OK\r\n\r\n" +
+                    "Content-Length: " + body.length() + "\r\n" +
+                    "\r\n" +
+                    body;
+            clientSocket.getOutputStream().write(response.getBytes());
+            return;
+        }
+
+        if (requestTarget.equals("/api/projectMembers")) {
+            body = "<ol>";
+
+            // foreach : member name
+            for (String memberName : memberNames) {
+                body += "<li>" + memberName + "</li>";
+            }
+
+            body += "</ol><ol>";
+
+            // foreach : email address
+            for ( String emailAddress : emailAddresses) {
+
+                // Used URLDecoder for fixing problem with %40 => @
+                body += "<li>" + URLDecoder.decode(emailAddress, "UTF-8") + "</li>";
+            }
+            body += "</ol>";
+
+        } else if (questionPos != -1) {
+            // body=hello
             QueryString queryString = new QueryString(requestTarget.substring(questionPos+1));
             if (queryString.getParameter("status") != null) {
                 statusCode = queryString.getParameter("status");
@@ -56,6 +100,7 @@ public class HttpServer {
                         "Content-Length: " + body.length() + "\r\n" +
                         "\r\n" +
                         body;
+                // Write the response back to the client
                 clientSocket.getOutputStream().write(response.getBytes());
                 return;
             }
@@ -63,14 +108,18 @@ public class HttpServer {
             String contentType = "text/plain";
             if (file.getName().endsWith(".html")) {
                 contentType = "text/html";
+            } else if (file.getName().endsWith(".css")){
+                contentType = "text/css";
             }
             String response = "HTTP/1.1 " + statusCode + " OK\r\n" +
                     "Content-Length: " + file.length() + "\r\n" +
                     "Content-Type: " + contentType + "\r\n" +
                     "\r\n";
+            // Write the response back to the client
             clientSocket.getOutputStream().write(response.getBytes());
 
             new FileInputStream(file).transferTo(clientSocket.getOutputStream());
+            // TODO ? Fra forelesning   return;
         }
 
         String response = "HTTP/1.1 " + statusCode + " OK\r\n" +
@@ -79,6 +128,7 @@ public class HttpServer {
                 "\r\n" +
                 body;
 
+        // Write the response back to the client
         clientSocket.getOutputStream().write(response.getBytes());
     }
 
@@ -93,5 +143,9 @@ public class HttpServer {
 
     public List<String> getMemberNames() {
         return memberNames;
+    }
+
+    public List<String> getEmailAddresses() {
+        return emailAddresses;
     }
 }
