@@ -11,15 +11,13 @@
 <div id="projectMembers"></div>
 
 <div>
-    <a href="newWorker.html">Add new project member</a>
+    <a href="/newWorker.html">Add new project member</a>
 </div>
 </body>
 <script>
-    fetch("/projectMembers")
-        .then(function(response) {
-            return response.text();
-        }).then(function(text) {
-        document.getElementById("projectMembers").innerHTML = text;
-    });
+    const projectMembers = document.getElementById("projectMembers");
+    fetch("/api/projectMembers")
+        .then(resp => resp.text())
+        .then(html => projectMembers.innerHTML = html);
 </script>
 </html>
