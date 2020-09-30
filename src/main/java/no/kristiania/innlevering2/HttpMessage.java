@@ -1,4 +1,4 @@
-package no.kristiania.http;
+package no.kristiania.innlevering2;
 
 import java.io.IOException;
 import java.net.Socket;
