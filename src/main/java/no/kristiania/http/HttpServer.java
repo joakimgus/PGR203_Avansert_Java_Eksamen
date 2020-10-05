@@ -35,12 +35,11 @@ public class HttpServer {
     private void handleRequest(Socket clientSocket) throws IOException {
         HttpMessage request = new HttpMessage(clientSocket);
         String requestLine = request.getStartLine();
-        System.out.println(requestLine);
+        System.out.println("REQUEST " + requestLine);
 
         String requestMethod = requestLine.split(" ")[0];
+
         String requestTarget = requestLine.split(" ")[1];
-        String statusCode = "200";
-        String body = "Hello <strong>World</strong>!";
 
         int questionPos = requestTarget.indexOf('?');
 
@@ -50,7 +49,7 @@ public class HttpServer {
             QueryString queryString = new QueryString(request.getBody());
             memberNames.add(queryString.getParameter("full_name"));
             emailAddresses.add(queryString.getParameter("email_address"));
-            body = "Okay";
+            String body = "Okay";
 
             String response = "HTTP/1.1 200 OK\r\n\r\n" +
                     "Content-Length: " + body.length() + "\r\n" +
@@ -58,62 +57,76 @@ public class HttpServer {
                     body;
             clientSocket.getOutputStream().write(response.getBytes());
             return;
+        } else {
+            if (requestPath.equals("/echo")) {
+                handleEchoRequest(clientSocket, requestTarget, questionPos);
+            } else if (requestPath.equals("/api/projectMembers")) {
+                handleGetMembers(clientSocket);
+            } else {
+                File file = new File(contentRoot, requestPath);
+                if (!file.exists()) {
+                    String body = file + " does not exist";
+                    String response = "HTTP/1.1 404 Not Found\r\n" +
+                            "Content-Length: " + body.length() + "\r\n" +
+                            "\r\n" +
+                            body;
+                    clientSocket.getOutputStream().write(response.getBytes());
+                    return;
+                }
+                String statusCode = "200";
+                String contentType = "text/plain";
+                if (file.getName().endsWith(".html")) {
+                    contentType = "text/html";
+                } else if (file.getName().endsWith(".css")){
+                    contentType = "text/css";
+                }
+                String response = "HTTP/1.1 " + statusCode + " OK\r\n" +
+                        "Content-Length: " + file.length() + "\r\n" +
+                        "Connection: close\r\n" +
+                        "Content-Type: " + contentType + "\r\n" +
+                        "\r\n";
+
+                clientSocket.getOutputStream().write(response.getBytes());
+
+                new FileInputStream(file).transferTo(clientSocket.getOutputStream());
+            }
         }
+    }
 
-        if (requestTarget.equals("/api/projectMembers")) {
-            body = "<ol>";
+    private void handleGetMembers(Socket clientSocket) throws IOException {
+        String body = "<ol>";
+        for (String memberName : memberNames) {
+            body += "<li>" + memberName + "</li>";
+        }
+        body += "</ol><ol>";
 
-            // For-each : member name
-            for (String memberName : memberNames) {
-                body += "<li>" + memberName + "</li>";
-            }
+        for ( String emailAddress : emailAddresses) {
+            // Used URLDecoder for fixing problem with %40 => @
+            body += "<li>" + URLDecoder.decode(emailAddress, "UTF-8") + "</li>";
+        }
+        body += "</ol>";
+        String response = "HTTP/1.1 200 OK\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
+                "Content-Type: text/html\r\n" +
+                "Connection: close\r\n" +
+                "\r\n" +
+                body;
 
-            body += "</ol><ol>";
+        clientSocket.getOutputStream().write(response.getBytes());
+    }
 
-            // For-each : email address
-            for ( String emailAddress : emailAddresses) {
-
-                // Used URLDecoder for fixing problem with %40 => @
-                body += "<li>" + URLDecoder.decode(emailAddress, "UTF-8") + "</li>";
-            }
-            body += "</ol>";
-
-        } else if (questionPos != -1) {
-            QueryString queryString = new QueryString(requestTarget.substring(questionPos+1));
+    private void handleEchoRequest(Socket clientSocket, String requestTarget, int questionPos) throws IOException {
+        String statusCode = "200";
+        String body = "Hello <strong>World</strong>!";
+        if (questionPos != -1) {
+            QueryString queryString = new QueryString(requestTarget.substring(questionPos + 1));
             if (queryString.getParameter("status") != null) {
                 statusCode = queryString.getParameter("status");
             }
             if (queryString.getParameter("body") != null) {
                 body = queryString.getParameter("body");
             }
-        } else if (!requestPath.equals("/echo")) {
-            File file = new File(contentRoot, requestPath);
-            if (!file.exists()) {
-                body = file + " does not exist";
-                String response = "HTTP/1.1 404 Not Found\r\n" +
-                        "Content-Length: " + body.length() + "\r\n" +
-                        "\r\n" +
-                        body;
-                // Write the response back to the client
-                clientSocket.getOutputStream().write(response.getBytes());
-                return;
-            }
-            statusCode = "200";
-            String contentType = "text/plain";
-            if (file.getName().endsWith(".html")) {
-                contentType = "text/html";
-            } else if (file.getName().endsWith(".css")){
-                contentType = "text/css";
-            }
-            String response = "HTTP/1.1 " + statusCode + " OK\r\n" +
-                    "Content-Length: " + file.length() + "\r\n" +
-                    "Content-Type: " + contentType + "\r\n" +
-                    "\r\n";
-            clientSocket.getOutputStream().write(response.getBytes());
-
-            new FileInputStream(file).transferTo(clientSocket.getOutputStream());
         }
-
         String response = "HTTP/1.1 " + statusCode + " OK\r\n" +
                 "Content-Length: " + body.length() + "\r\n" +
                 "Content-Type: text/plain\r\n" +
