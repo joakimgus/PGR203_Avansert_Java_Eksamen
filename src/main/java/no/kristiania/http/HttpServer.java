@@ -56,7 +56,6 @@ public class HttpServer {
                     "\r\n" +
                     body;
             clientSocket.getOutputStream().write(response.getBytes());
-            return;
         } else {
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
