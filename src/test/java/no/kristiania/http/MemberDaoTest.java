@@ -1,5 +1,6 @@
 package no.kristiania.http;
 
+import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,8 @@ class MemberDaoTest {
     void shouldListInsertedMembers() throws SQLException {
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setUrl("jdbc:h2:mem:testdatabase;DB_CLOSE_DELAY=-1");
+        Flyway.configure().dataSource(dataSource).load().migrate();
+
         try (Connection connection = dataSource.getConnection()) {
             connection.prepareStatement("create table members (member_name varchar)").executeUpdate();
         }
