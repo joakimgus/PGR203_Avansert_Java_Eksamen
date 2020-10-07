@@ -15,7 +15,7 @@ class MemberDaoTest {
     @Test
     void shouldListInsertedMembers() throws SQLException {
         JdbcDataSource dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:mem:testdatabase;DB_CLOSE_DELAY=-1");
+        dataSource.setUrl("jdbc:h2:mem:testdatabase;DB_CLOSE_DELAY=-1;");
         Flyway.configure().dataSource(dataSource).load().migrate();
 
         MemberDao memberDao = new MemberDao(dataSource);
