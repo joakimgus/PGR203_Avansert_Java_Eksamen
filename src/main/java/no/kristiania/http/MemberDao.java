@@ -25,27 +25,15 @@ public class MemberDao {
         dataSource.setUser("joakimtina");
         dataSource.setPassword("project2020");
 
+        MemberDao memberDao = new MemberDao(dataSource);
+
         System.out.println("Please enter member name:");
         Scanner scanner = new Scanner(System.in);
         String memberName = scanner.nextLine();
 
-        // To get member_name from database
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO members (member_name) VALUES (?)")) {
-                statement.setString(1, memberName);
-                statement.executeUpdate();
-            }
-        }
-
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from members")){
-                try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        System.out.println(rs.getString("member_name"));
-                        //System.out.println(rs.getString("email"));
-                    }
-                }
-            }
+        memberDao.insert(memberName);
+        for (String member : memberDao.list()) {
+            System.out.println(member);
         }
     }
 
