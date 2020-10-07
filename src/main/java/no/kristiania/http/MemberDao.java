@@ -20,6 +20,7 @@ public class MemberDao {
         Scanner scanner = new Scanner(System.in);
         String memberName = scanner.nextLine();
 
+        // To get member_name from database
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO members (member_name) VALUES (?)")) {
                 statement.setString(1, memberName);
@@ -31,8 +32,8 @@ public class MemberDao {
             try (PreparedStatement statement = connection.prepareStatement("select * from members")){
                 try (ResultSet rs = statement.executeQuery()) {
                     while (rs.next()) {
-                        System.out.println(rs.getString("name"));
-                        System.out.println(rs.getString("email"));
+                        System.out.println(rs.getString("member_name"));
+                        //System.out.println(rs.getString("email"));
                     }
                 }
             }
