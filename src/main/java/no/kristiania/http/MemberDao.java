@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MemberDao {
@@ -40,4 +41,10 @@ public class MemberDao {
         }
     }
 
+    public void insert(String member) {
+    }
+
+    public List<String> list() {
+        return null;
+    }
 }
