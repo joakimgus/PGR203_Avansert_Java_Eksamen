@@ -2,6 +2,7 @@ package no.kristiania.http;
 
 import org.postgresql.ds.PGSimpleDataSource;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,11 @@ import java.util.Scanner;
 public class MemberDao {
 
     private ArrayList<String> members = new ArrayList<>();
+    private DataSource dataSource;
+
+    public MemberDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public static void main(String[] args) throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
@@ -44,7 +50,14 @@ public class MemberDao {
         }
     }
 
-    public void insert(String member) {
+    public void insert(String member) throws SQLException {
+        // To get member_name from database
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO members (member_name) VALUES (?)")) {
+                statement.setString(1, member);
+                statement.executeUpdate();
+            }
+        }
         members.add(member);
     }
 
