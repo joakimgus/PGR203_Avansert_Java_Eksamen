@@ -18,11 +18,11 @@ public class MemberDao {
 
         System.out.println("Please enter member name:");
         Scanner scanner = new Scanner(System.in);
-        String name = scanner.nextLine();
+        String memberName = scanner.nextLine();
 
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO members (name) VALUES (?)")) {
-                statement.setString(1, name);
+            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO members (member_name) VALUES (?)")) {
+                statement.setString(1, memberName);
                 statement.executeUpdate();
             }
         }
