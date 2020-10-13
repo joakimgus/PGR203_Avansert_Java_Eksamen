@@ -29,7 +29,7 @@ class MemberDaoTest {
     @Test
     void shouldRetrieveInsertedMember() throws SQLException {
         Member member = exampleMember();
-        memberDao.inser(member);
+        memberDao.insert(member);
         assertThat(member).hasNoNullFieldsOrProperties();
         assertThat(memberDao.retrieve(member.getId()))
                 .usingFieldByFieldElementComparator()
