@@ -19,12 +19,20 @@ class MemberDaoTest {
         Flyway.configure().dataSource(dataSource).load().migrate();
 
         MemberDao memberDao = new MemberDao(dataSource);
-        String member = exampleMember();
+        Member member = exampleMember();
         memberDao.insert(member);
-        assertThat(memberDao.list()).contains(member);
+        assertThat(memberDao.list())
+                .extracting(Member::getName)
+                .contains(member.getName());
     }
 
-    private String exampleMember() {
+    private Member exampleMember() {
+        Member member = new Member();
+        member.setName(exampleMemberName());
+        return member;
+    }
+
+    private String exampleMemberName() {
         String[] members = {"Test","Joakim"};
         Random random = new Random();
         return members[random.nextInt(members.length)];
