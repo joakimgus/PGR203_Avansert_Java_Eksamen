@@ -26,6 +26,16 @@ class MemberDaoTest {
                 .contains(member.getName());
     }
 
+    @Test
+    void shouldRetrieveInsertedMember() throws SQLException {
+        Member member = exampleMember();
+        memberDao.inser(member);
+        assertThat(member).hasNoNullFieldsOrProperties();
+        assertThat(memberDao.retrieve(member.getId()))
+                .usingFieldByFieldElementComparator()
+                .isEqualTo(member);
+    }
+
     private Member exampleMember() {
         Member member = new Member();
         member.setName(exampleMemberName());
