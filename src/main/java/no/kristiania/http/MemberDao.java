@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,50 +20,78 @@ public class MemberDao {
         this.dataSource = dataSource;
     }
 
-    public static void main(String[] args) throws SQLException {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/kristianiaproject");
-        dataSource.setUser("joakimtina");
-        dataSource.setPassword("project2020");
-
-        MemberDao memberDao = new MemberDao(dataSource);
-
-        System.out.println("Please enter member name:");
-        Scanner scanner = new Scanner(System.in);
-        String memberName = scanner.nextLine();
-
-        Member member = new Member();
-        member.setName(memberName);
-        memberDao.insert(member);
-        for (Member m : memberDao.list()) {
-            System.out.println(m);
-        }
-    }
-
     public void insert(Member member) throws SQLException {
-        // To get member_name from database
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO members (member_name) VALUES (?)")) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO members (member_name, email) values (?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
+            )) {
                 statement.setString(1, member.getName());
+                statement.setString(2, member.getEmail());
                 statement.executeUpdate();
+
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    generatedKeys.next();
+                    member.setId(generatedKeys.getLong("id"));
+                }
             }
         }
     }
 
-    public List<Member> list() throws SQLException {
-        List<Member> members = new ArrayList<>();
+    public Member retrieve(Long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("select * from members")){
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM members WHERE id = ?")) {
+                statement.setLong(1, id);
                 try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        Member member = new Member();
-                        member.setName(rs.getString("member_name"));
-                        members.add(member);
-                        //System.out.println(rs.getString("email"));
+                    if (rs.next()) {
+                        return mapRowToMember(rs);
+                    } else {
+                        return null;
                     }
                 }
             }
         }
-        return members;
     }
+
+    private Member mapRowToMember(ResultSet rs) throws SQLException {
+        Member member = new Member();
+        member.setId(rs.getLong("id"));
+        member.setName(rs.getString("member_name"));
+        member.setEmail(rs.getString("email"));
+        return member;
+    }
+
+    public List<Member> list() throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM members")) {
+                try (ResultSet rs = statement.executeQuery()) {
+                    List<Member> members = new ArrayList<>();
+                    while (rs.next()) {
+                        members.add(mapRowToMember(rs));
+                    }
+                    return members;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws SQLException {
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/kristianiashop");
+        dataSource.setUser("kristianiashopuser");
+        // TODO: database passwords should never be checked in!
+        dataSource.setPassword("5HGQ[f_t2D}^?");
+
+        MemberDao memberDao = new MemberDao(dataSource);
+
+        System.out.println("What's the name of the new member");
+        Scanner scanner = new Scanner(System.in);
+
+        Member member = new Member();
+        member.setName(scanner.nextLine());
+
+        memberDao.insert(member);
+        System.out.println(memberDao.list());
+    }
+
 }

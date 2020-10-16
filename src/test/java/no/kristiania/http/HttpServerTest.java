@@ -82,5 +82,6 @@ class HttpServerTest {
         server.getEmailAddresses().add("test@test.com");
         HttpClient client = new HttpClient("localhost", 10009, "/api/projectMembers");
         assertEquals("<ol><li>Test</li></ol><ol><li>test@test.com</li></ol>", client.getResponseBody());
+        //assertThat(client.getResponseBody()).contains("<li>Test</li><li>test@test.com</li>");
     }
 }
