@@ -58,6 +58,8 @@ public class HttpServer {
 
             Member member = new Member();
             member.setName(requestParameter.getParameter("full_name"));
+            String emailAddress = member.setEmail(requestParameter.getParameter("email_address"));
+            member.setEmail(URLDecoder.decode(emailAddress, "UTF-8"));
             memberDao.insert(member);
             String body = "Okay";
             String response = "HTTP/1.1 200 OK\r\n" +
