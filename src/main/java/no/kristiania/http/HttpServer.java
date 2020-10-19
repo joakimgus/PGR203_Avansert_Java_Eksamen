@@ -57,7 +57,8 @@ public class HttpServer {
             QueryString requestParameter = new QueryString(request.getBody());
 
             Member member = new Member();
-            member.setName(requestParameter.getParameter("full_name"));
+            String fullName = member.setName(requestParameter.getParameter("full_name"));
+            member.setName(URLDecoder.decode(fullName, "UTF-8"));
             String emailAddress = member.setEmail(requestParameter.getParameter("email_address"));
             member.setEmail(URLDecoder.decode(emailAddress, "UTF-8"));
             memberDao.insert(member);
