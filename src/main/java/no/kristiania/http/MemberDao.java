@@ -1,8 +1,10 @@
 package no.kristiania.http;
 
+import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class MemberDao {
@@ -76,11 +79,16 @@ public class MemberDao {
     }
 
     public static void main(String[] args) throws SQLException {
+        Properties properties = new Properties();
+        try (FileReader fileReader = new FileReader("pgr203.properties")) {
+            properties.load(fileReader);
+        }
+
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/kristianiashop");
-        dataSource.setUser("kristianiashopuser");
-        // TODO: database passwords should never be checked in!
-        dataSource.setPassword("5HGQ[f_t2D}^?");
+        dataSource.setUrl(properties.getProperty("dataSource.url"));
+        dataSource.setUser(properties.getProperty("dataSource.username"));
+        dataSource.setPassword(properties.getProperty("dataSource.password"));
+        Flyway.configure().dataSource(dataSource).load().migrate();
 
         MemberDao memberDao = new MemberDao(dataSource);
 
