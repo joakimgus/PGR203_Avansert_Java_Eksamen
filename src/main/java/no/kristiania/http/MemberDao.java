@@ -5,6 +5,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,6 +83,8 @@ public class MemberDao {
         Properties properties = new Properties();
         try (FileReader fileReader = new FileReader("pgr203.properties")) {
             properties.load(fileReader);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
@@ -101,5 +104,4 @@ public class MemberDao {
         memberDao.insert(member);
         System.out.println(memberDao.list());
     }
-
 }

@@ -90,7 +90,7 @@ class HttpServerTest {
     @Test
     void shouldPostNewMembers() throws IOException, SQLException {
         HttpServer server = new HttpServer(10008, dataSource);
-        HttpClient client = new HttpClient("localhost", 10008, "/api/newMember", "POST", "memberName=joakim&email=joakim@test.com");
+        HttpClient client = new HttpClient("localhost", 10008, "/api/newMember", "POST", "full_name=joakim&email_address=joakim@test.com");
         assertEquals(200, client.getStatusCode());
         assertThat(server.getMemberNames())
                 .extracting(member -> member.getName())
