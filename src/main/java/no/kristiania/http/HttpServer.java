@@ -1,7 +1,7 @@
 package no.kristiania.http;
 
-import no.kristiania.http.Member;
-import no.kristiania.http.MemberDao;
+import no.kristiania.database.Member;
+import no.kristiania.database.MemberDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 

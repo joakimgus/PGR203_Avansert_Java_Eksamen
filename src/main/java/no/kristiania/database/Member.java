@@ -1,4 +1,4 @@
-package no.kristiania.http;
+package no.kristiania.database;
 
 public class Member {
     private String name;

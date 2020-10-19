@@ -1,4 +1,4 @@
-package no.kristiania.http;
+package no.kristiania.database;
 
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
