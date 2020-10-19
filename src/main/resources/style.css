@@ -1,3 +1,8 @@
 body {
-    background-color: lime;
+    background-color: black;
+    color: limegreen;
+}
+
+a:visited, a:link {
+    color: limegreen;
 }
