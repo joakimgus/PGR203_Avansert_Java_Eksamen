@@ -62,7 +62,7 @@ public class HttpServer {
             String emailAddress = member.setEmail(requestParameter.getParameter("email_address"));
             member.setEmail(URLDecoder.decode(emailAddress, "UTF-8"));
             memberDao.insert(member);
-            String body = "Okay";
+            String body = "Member " + URLDecoder.decode(fullName, "UTF-8") + " added.";
             String response = "HTTP/1.1 200 OK\r\n" +
                     "Connection: close\r\n" +
                     "Content-Length: " + body.length() + "\r\n" +
