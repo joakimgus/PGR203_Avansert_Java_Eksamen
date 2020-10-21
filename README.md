@@ -2,20 +2,9 @@
 
 # pgr203innlevering3-gruppe20
 
-<strong>Beskrivelse av prosjektet</strong>
+- Startsiden er localhost:8080/index.html
 
-Prosjektet består av fire mainklasser og tre testklasser.
-HttpServer kan kjøres for å starte en server som kan håndtere HTTP GET og POST metoder. 
-HttpClient kan koble seg opp til serveren, og sende og motta requests/responses.
-HttpMessage består av kode som brukes av både HttpServer og HttpClient.
-QueryString lar oss lese og bruke en sides querystring. 
-
-<strong>Brukerguide</strong>
-
-Når webserveren har startet opp, gå til "http://localhost:8080/index.html" i en nettleser, dette er startsiden for prosjektet. 
-<br>
-Herfra kan du trykke på <strong>"Add new project member"</strong> for å komme til siden "http://localhost:8080/newWorker.html".
-<br>
-På denne siden kan du legge til nye project members ved å fylle til navn og e-postaddresse, og deretter trykke på knappen <strong>"Add"</strong>.
-<br>
-På hovedsiden vil du nå se en liste over alle project members og dere e-postadresser. 
+Updates fra innlevering 2
+- Implementert databaseaksess i løsningen.
+- Rerouter fra api/newWorker til index.html når du har lagt til member, ved hjelp av 302 i stedet for 200.
+- Benyttet oss av URLDecoder for å fjerne unødvendige tegn/gjøre løsningen mer visuelt behagelig.
