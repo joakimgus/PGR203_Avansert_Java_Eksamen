@@ -91,9 +91,9 @@ class HttpServerTest {
     void shouldPostNewMembers() throws IOException, SQLException {
         HttpServer server = new HttpServer(10008, dataSource);
         HttpClient client = new HttpClient("localhost", 10008, "/api/newMember", "POST", "full_name=John+Smith&email_address=john@smith.com");
-        assertEquals(200, client.getStatusCode());
+        assertEquals(302, client.getStatusCode());
         assertThat(server.getMemberNames())
-                .extracting(member -> member.getName())
+                .extracting(Member::getName)
                 .contains("John Smith");
     }
 
