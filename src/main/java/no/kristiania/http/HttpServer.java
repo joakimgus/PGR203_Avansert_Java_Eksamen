@@ -62,7 +62,7 @@ public class HttpServer {
             String emailAddress = member.setEmail(requestParameter.getParameter("email_address"));
             member.setEmail(URLDecoder.decode(emailAddress, "UTF-8"));
             memberDao.insert(member);
-            String body = "Member " + URLDecoder.decode(fullName, "UTF-8") + " added.";
+            String body = "Member " + URLDecoder.decode(fullName, "UTF-8") + " added." + "\r\n";
             String response = "HTTP/1.1 302 Found\r\n" +
                     "Location: http://localhost:8080/index.html\r\n" +
                     "Connection: close\r\n" +
