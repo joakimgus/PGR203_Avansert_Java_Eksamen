@@ -1,7 +1,6 @@
 
 ![Java CI with Maven](https://github.com/tinaeile/Http-server-database/workflows/Java%20CI%20with%20Maven/badge.svg)
-# pgr203innlevering2-gruppe20
-pgr203innlevering2-joakimgus created by GitHub Classroom
+# pgr203innlevering3-gruppe20
 
 <strong>Beskrivelse av prosjektet</strong>
 
