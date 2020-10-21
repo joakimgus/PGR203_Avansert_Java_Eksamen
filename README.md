@@ -1,5 +1,5 @@
+![Java CI with Maven](https://github.com/kristiania/pgr203innevering3-tinaeile/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
-![Java CI with Maven](https://github.com/tinaeile/Http-server-database/workflows/Java%20CI%20with%20Maven/badge.svg)
 # pgr203innlevering3-gruppe20
 
 <strong>Beskrivelse av prosjektet</strong>
