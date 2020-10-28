@@ -23,7 +23,7 @@ import java.util.Properties;
 
 public class HttpServer {
 
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(HttpServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     private final Map<String, HttpController> controllers;
 
@@ -34,11 +34,11 @@ public class HttpServer {
         memberDao = new MemberDao(dataSource);
         MemberTaskDao memberTaskDao = new MemberTaskDao(dataSource);
         controllers = Map.of(
-                "/api/newTask", new MemberTaskPostController(MemberTaskDao),
-                "/api/tasks", new MemberTaskGetController(MemberTaskDao),
-                "/api/taskOptions", new MemberTaskOptionsController(MemberTaskDao),
-                "/api/memberOptions", new MemberOptionsController(MemberDao),
-                "/api/updateMember", new UpdateMemberController(MemberDao)
+                "/api/newTask", new MemberTaskPostController(memberTaskDao),
+                "/api/tasks", new MemberTaskGetController(memberTaskDao),
+                "/api/taskOptions", new MemberTaskOptionsController(memberTaskDao),
+                "/api/memberOptions", new MemberOptionsController(memberDao),
+                "/api/updateMember", new UpdateMemberController(memberDao)
         );
 
         serverSocket = new ServerSocket(port);
