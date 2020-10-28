@@ -1,14 +1,17 @@
 package no.kristiania.http;
 
+import no.kristiania.database.MemberTask;
+import no.kristiania.database.MemberTaskDao;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
 public class MemberTaskOptionsController implements HttpController {
-    private MemberTaskDao memberTaskDao;
+    private MemberTaskDao taskDao;
 
     public MemberTaskOptionsController(MemberTaskDao memberTaskDao) {
-        this.memberTaskDao = memberTaskDao;
+        this.taskDao = memberTaskDao;
     }
 
     @Override

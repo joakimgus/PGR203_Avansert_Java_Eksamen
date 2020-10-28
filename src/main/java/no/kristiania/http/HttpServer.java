@@ -3,8 +3,10 @@ package no.kristiania.http;
 import no.kristiania.database.Member;
 import no.kristiania.database.MemberDao;
 import no.kristiania.database.MemberTaskDao;
+
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
@@ -18,7 +20,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 public class HttpServer {
 

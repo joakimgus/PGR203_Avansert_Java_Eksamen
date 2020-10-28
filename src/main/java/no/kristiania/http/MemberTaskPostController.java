@@ -1,6 +1,10 @@
 package no.kristiania.http;
 
+import no.kristiania.database.MemberTask;
+import no.kristiania.database.MemberTaskDao;
+
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 
 public class MemberTaskPostController implements HttpController {
