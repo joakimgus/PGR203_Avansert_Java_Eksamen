@@ -1,27 +1,27 @@
 ### JAVA EKSAMEN
 
 **SJEKKLISTE**
-- [ ] Oppgaven skal løses i Github vha Github Classroom med link fra Canvas. Repository på github skal være private.
+- [x] Oppgaven skal løses i Github vha Github Classroom med link fra Canvas. Repository på github skal være private.
 - [ ] Oppgaven skal leveres i Wiseflow som en ZIP-fil og link til Github Classroom.
-- [ ] Oppgaven skal løses parvis. Ønsker du å levere alene eller i gruppe på tre må dette avklares med foreleser innen siste forelesning
-- [ ] Innleveringen kan deles med en annen gruppe for gjensidig tilbakemelding. Tilbakemelding skal gis i form av Github issues
-- [ ] README.md på Github skal linke til Github Actions som skal kjøre enhetstester uten feil. README-filen skal også inneholde link til gitt tilbakemelding til annet team, et UML-diagram samt beskrivelse av hva kandiditene ønskes skal vurderes i evalueringen av innleveringen
+- [x] Oppgaven skal løses parvis. Ønsker du å levere alene eller i gruppe på tre må dette avklares med foreleser innen siste forelesning.
+- [ ] Innleveringen kan deles med en annen gruppe for gjensidig tilbakemelding. Tilbakemelding skal gis i form av Github issues.
+- [ ] README.md på Github skal linke til Github Actions som skal kjøre enhetstester uten feil. README-filen skal også inneholde link til gitt tilbakemelding til annet team, et UML-diagram samt beskrivelse av hva kandiditene ønskes skal vurderes i evalueringen av innleveringen.
 
 **Funksjonaliteten skal inkludere:**
-- [ ] Opprett prosjektmedlem med navn og email Liste prosjektmedlemmer
-- [ ] Opprett ny prosjektoppgave med navn og status Tildel oppgave til prosjektmedlemmer
-- [ ] Liste opp prosjektoppgaver, inkludert status og tildelte prosjektmedlemmer Endre oppgavestatus
-- [ ] Filtrere oppgaver per prosjektmedlem og status
+- [x] Opprett prosjektmedlem med navn og email Liste prosjektmedlemmer.
+- [ ] Opprett ny prosjektoppgave med navn og status Tildel oppgave til prosjektmedlemmer.
+- [ ] Liste opp prosjektoppgaver, inkludert status og tildelte prosjektmedlemmer Endre oppgavestatus.
+- [ ] Filtrere oppgaver per prosjektmedlem og status.
 - [ ] Ekstra funksjonalitet gir bonuspoeng. Dette kan for eksempel være redigering av eksisterende prosjektmedlemmer og oppgaver, organisering av oppgaver og prosjektmedlemmer i prosjekt, "logge inn" som prosjektmedlem med cookies, endre statuskategorier.
 - [ ] Prosjektet må følge god programmeringsskikk. Dette er viktige krav og feil på et enkelt punkt kan gi en hel karakter i trekk.
-- [ ] Koden skal følge standard Java-konvensjoner med hensyn til store og små bokstaver og indentering Koden skal utvikles på Git, med Maven og kjøre tester på Github Actions
-- [ ] Koden skal ha god testdekning
-- [ ] Det skal ikke forekomme SQL Injection feil
-- [ ] Databasepassord skal være konfigurert i en fil som ikke sjekkes inn i git
-- [ ] README-fil må dokumentere hvordan man bygger, konfigurerer og kjører løsningen
-- [ ] README-fil må dokumentere designet på løsningen
-- [ ] README-fil må beskrive erfaringene med arbeidet og løsningen
-- [ ] Maven skal bygge en executable jar som inneholder HTML-koden og som referer til pgr203.properties i current working directory
+- [ ] Koden skal følge standard Java-konvensjoner med hensyn til store og små bokstaver og indentering Koden skal utvikles på Git, med Maven og kjøre tester på Github Actions.
+- [ ] Koden skal ha god testdekning.
+- [ ] Det skal ikke forekomme SQL Injection feil.
+- [ ] Databasepassord skal være konfigurert i en fil som ikke sjekkes inn i git.
+- [ ] README-fil må dokumentere hvordan man bygger, konfigurerer og kjører løsningen.
+- [ ] README-fil må dokumentere designet på løsningen.
+- [ ] README-fil må beskrive erfaringene med arbeidet og løsningen.
+- [ ] Maven skal bygge en executable jar som inneholder HTML-koden og som referer til pgr203.properties i current working directory.
 - [ ] God abstraksjon for eksempel DAO eller Controller-klasser gir bonuspoeng. Konsistent bruk av begreper og kode vektlegges. Brukervennlighet er ikke et vurderingskriterie for karakteren.
 
 **Vedlegg: Sjekkliste for innlevering**
@@ -37,8 +37,8 @@
 - [ ] Dere har gitt minst 2 positive og 2 korrektive GitHub issues til en annen gruppe og inkluderer link til disse fra README.md
 
 **Koden**
-- [ ] mvn package bygger en executable jar-fil
-- [ ] Koden inneholder et godt sett med tester
+- [x] mvn package bygger en executable jar-fil
+- [x] Koden inneholder et godt sett med tester
 - [ ] java -jar target/...jar (etter mvn package ) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
 - [ ] Programmet leser dataSource.url , dataSource.username og dataSource.password fra pgr203.properties for å connecte til databasen
 - [ ] Programmet bruker Flywaydb for å sette opp databaseskjema
@@ -65,4 +65,4 @@
 - [ ] Link til video med god demonstrasjon av ping-pong programmering
 - [ ] Automatisk rapportering av testdekning i Github Actions
 - [ ] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1
-- [ ] Annet
+- [ ] Annet.
