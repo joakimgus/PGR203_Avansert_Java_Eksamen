@@ -4,7 +4,7 @@ import no.kristiania.database.Member;
 import no.kristiania.database.MemberDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
-
+import org.slf4j.LoggerFactory;
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
@@ -15,29 +15,46 @@ import java.net.Socket;
 import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class HttpServer {
 
+    private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
+
+    private Map<String, HttpController> controllers;
+
     private MemberDao memberDao;
+    private ServerSocket serverSocket;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
         memberDao = new MemberDao(dataSource);
+        MemberTaskDao memberTaskDao = new MemberTaskDao(dataSource);
+        controllers = Map.of(
+                "/api/newTask", new MemberTaskPostController(MemberTaskDao),
+                "/api/tasks", new MemberTaskGetController(MemberTaskDao),
+                "/api/taskOptions", new MemberTaskOptionsController(MemberTaskDao),
+                "/api/memberOptions", new MemberOptionsController(MemberDao),
+                "/api/updateMember", new UpdateMemberController(MemberDao)
+        );
 
-        // Opens a entry point to our program for network clients
-        ServerSocket serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
+        logger.info("Server started on port {}", serverSocket.getLocalPort());
 
-        // New Threads that executes code in a separate "thread"
         new Thread(() -> {
             while (true) {
-                try {
-                    Socket clientSocket = serverSocket.accept();
+                try (Socket clientSocket = serverSocket.accept()){
                         handleRequest(clientSocket);
                 } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
             }
-        }).start(); // Start the threads, so the code inside executes without blocking the current thread
+        }).start();
+    }
+
+    public int getPort() {
+        return serverSocket.getLocalPort();
     }
 
     private void handleRequest(Socket clientSocket) throws IOException, SQLException {
@@ -54,31 +71,49 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
         if (requestMethod.equals("POST")) {
-            QueryString requestParameter = new QueryString(request.getBody());
 
-            Member member = new Member();
-            String fullName = member.setName(requestParameter.getParameter("full_name"));
-            member.setName(URLDecoder.decode(fullName, "UTF-8"));
-            String emailAddress = member.setEmail(requestParameter.getParameter("email_address"));
-            member.setEmail(URLDecoder.decode(emailAddress, "UTF-8"));
-            memberDao.insert(member);
-            String body = "Member " + URLDecoder.decode(fullName, "UTF-8") + " added." + "\r\n";
-            String response = "HTTP/1.1 302 Found\r\n" +
-                    "Location: http://localhost:8080/index.html\r\n" +
-                    "Connection: close\r\n" +
-                    "Content-Length: " + body.length() + "\r\n" +
-                    "\r\n" +
-                    body;
-            clientSocket.getOutputStream().write(response.getBytes());
+            if (requestPath.equals("/api/newMember")) {
+                handlePostMember(clientSocket, request);
+            } else {
+                getController(requestPath).handle(request, clientSocket);
+            }
         } else {
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
             } else if (requestPath.equals("/api/projectMembers")) {
                 handleGetMembers(clientSocket);
             } else {
-                handleFileRequest(clientSocket, requestPath);
+                HttpController controller = controllers.get(requestPath);
+                if (controller != null) {
+                    controller.handle(request, clientSocket);
+                } else {
+                    handleFileRequest(clientSocket, requestPath);
+                }
             }
         }
+    }
+
+    private HttpController getController(String requestPath) {
+        return controllers.get(requestPath);
+    }
+
+    private void handlePostMember(Socket clientSocket, HttpMessage request) throws SQLException, IOException {
+        QueryString requestParameter = new QueryString(request.getBody());
+
+        Member member = new Member();
+        String fullName = member.setName(requestParameter.getParameter("full_name"));
+        member.setName(URLDecoder.decode(fullName, "UTF-8"));
+        String emailAddress = member.setEmail(requestParameter.getParameter("email_address"));
+        member.setEmail(URLDecoder.decode(emailAddress, "UTF-8"));
+        memberDao.insert(member);
+        String body = "Member " + URLDecoder.decode(fullName, "UTF-8") + " added." + "\r\n";
+        String response = "HTTP/1.1 302 Found\r\n" +
+                "Location: http://localhost:8080/index.html\r\n" +
+                "Connection: close\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
+                "\r\n" +
+                body;
+        clientSocket.getOutputStream().write(response.getBytes());
     }
 
     private void handleFileRequest(Socket clientSocket, String requestPath) throws IOException {
@@ -114,6 +149,7 @@ public class HttpServer {
     }
 
 
+    /* Endre visning av medlemmer og oppgaver gitt til medlemmer her */
     private void handleGetMembers(Socket clientSocket) throws IOException, SQLException {
         String body = "<ol>";
         for (Member member : memberDao.list()) {
@@ -161,12 +197,14 @@ public class HttpServer {
         dataSource.setUrl(properties.getProperty("dataSource.url"));
         dataSource.setUser(properties.getProperty("dataSource.username"));
         dataSource.setPassword(properties.getProperty("dataSource.password"));
+        logger.info("Using database {}", dataSource.getUrl());
         Flyway.configure().dataSource(dataSource).load().migrate();
 
         HttpServer server = new HttpServer(8080, dataSource);
+        logger.info("Started on http://localhost:{}/index.html", 8080);
     }
 
-    public List<Member> getMemberNames() throws SQLException {
+    public List<Member> getMembers() throws SQLException {
         return memberDao.list();
     }
 }

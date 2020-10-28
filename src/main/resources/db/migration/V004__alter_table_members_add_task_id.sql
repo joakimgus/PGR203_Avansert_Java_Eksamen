@@ -1,0 +1,1 @@
+alter table members add column task_id integer null references member_tasks(id);

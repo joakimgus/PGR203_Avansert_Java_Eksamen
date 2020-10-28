@@ -3,7 +3,8 @@ package no.kristiania.database;
 public class Member {
     private String name;
     private String email;
-    private Long id;
+    private Integer id;
+    private Integer taskId;
 
     public String getName() {
         return name;
@@ -14,11 +15,11 @@ public class Member {
         return name;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -29,5 +30,13 @@ public class Member {
     public String setEmail(String email) {
         this.email = email;
         return email;
+    }
+
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 }

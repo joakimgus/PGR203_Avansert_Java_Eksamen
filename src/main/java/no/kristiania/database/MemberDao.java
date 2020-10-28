@@ -16,12 +16,10 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class MemberDao {
-
-    private final DataSource dataSource;
+public class MemberDao extends AbstractDao<Member> {
 
     public MemberDao(DataSource dataSource) {
-        this.dataSource = dataSource;
+        super(dataSource);
     }
 
     public void insert(Member member) throws SQLException {
@@ -36,30 +34,31 @@ public class MemberDao {
 
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     generatedKeys.next();
-                    member.setId(generatedKeys.getLong("id"));
+                    member.setId(generatedKeys.getInt("id"));
                 }
             }
         }
     }
 
-    public Member retrieve(Long id) throws SQLException {
+    public void update(Member member) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM members WHERE id = ?")) {
-                statement.setLong(1, id);
-                try (ResultSet rs = statement.executeQuery()) {
-                    if (rs.next()) {
-                        return mapRowToMember(rs);
-                    } else {
-                        return null;
-                    }
-                }
+            try (PreparedStatement statement = connection.prepareStatement("UPDATE members SET task_id = ? WHERE id = ?")) {
+                statement.setInt(1, member.getTaskId());
+                statement.setInt(2, member.getId());
+                statement.executeUpdate();
             }
         }
     }
 
-    private Member mapRowToMember(ResultSet rs) throws SQLException {
+    public Member retrieve(Integer id) throws SQLException {
+        return retrieve(id, "SELECT * FROM members WHERE id = ?");
+    }
+
+    @Override
+    protected Member mapRow(ResultSet rs) throws SQLException {
         Member member = new Member();
-        member.setId(rs.getLong("id"));
+        member.setId(rs.getInt("id"));
+        member.setTaskId((Integer) rs.getObject("task_id"));
         member.setName(rs.getString("member_name"));
         member.setEmail(rs.getString("email"));
         return member;
@@ -71,7 +70,7 @@ public class MemberDao {
                 try (ResultSet rs = statement.executeQuery()) {
                     List<Member> members = new ArrayList<>();
                     while (rs.next()) {
-                        members.add(mapRowToMember(rs));
+                        members.add(mapRow(rs));
                     }
                     return members;
                 }
@@ -79,6 +78,8 @@ public class MemberDao {
         }
     }
 
+    /*
+    SAVED 4 later
     public static void main(String[] args) throws SQLException {
         Properties properties = new Properties();
         try (FileReader fileReader = new FileReader("pgr203.properties")) {
@@ -103,5 +104,6 @@ public class MemberDao {
 
         memberDao.insert(member);
         System.out.println(memberDao.list());
+     */
     }
 }
