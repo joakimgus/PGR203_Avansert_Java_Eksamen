@@ -1,12 +1,11 @@
-# JAVA EKSAMEN #
+### JAVA EKSAMEN
 
 **SJEKKLISTE**
-[ ] Oppgaven skal løses i Github vha Github Classroom med link fra Canvas. Repository på github skal være private
-[ ] Oppgaven skal leveres i Wiseflow som en ZIP-fil og link til Github Classroom
+-[ ] Oppgaven skal løses i Github vha Github Classroom med link fra Canvas. Repository på github skal være private.
+-[ ] Oppgaven skal leveres i Wiseflow som en ZIP-fil og link til Github Classroom.
 [ ] Oppgaven skal løses parvis. Ønsker du å levere alene eller i gruppe på tre må dette avklares med foreleser innen siste forelesning
 [ ] Innleveringen kan deles med en annen gruppe for gjensidig tilbakemelding. Tilbakemelding skal gis i form av Github issues
 [ ] README.md på Github skal linke til Github Actions som skal kjøre enhetstester uten feil. README-filen skal også inneholde link til gitt tilbakemelding til annet team, et UML-diagram samt beskrivelse av hva kandiditene ønskes skal vurderes i evalueringen av innleveringen
-[ ] Koden skal lese database settings fra en fil som heter pgr203.properties og ser ut som følger:
 
 **Funksjonaliteten skal inkludere:**
 [ ] Opprett prosjektmedlem med navn og email Liste prosjektmedlemmer
