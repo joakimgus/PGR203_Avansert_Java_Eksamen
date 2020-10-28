@@ -77,33 +77,4 @@ public class MemberDao extends AbstractDao<Member> {
             }
         }
     }
-
-    /*
-    SAVED 4 later
-    public static void main(String[] args) throws SQLException {
-        Properties properties = new Properties();
-        try (FileReader fileReader = new FileReader("pgr203.properties")) {
-            properties.load(fileReader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setUrl(properties.getProperty("dataSource.url"));
-        dataSource.setUser(properties.getProperty("dataSource.username"));
-        dataSource.setPassword(properties.getProperty("dataSource.password"));
-        Flyway.configure().dataSource(dataSource).load().migrate();
-
-        MemberDao memberDao = new MemberDao(dataSource);
-
-        System.out.println("What's the name of the new member");
-        Scanner scanner = new Scanner(System.in);
-
-        Member member = new Member();
-        member.setName(scanner.nextLine());
-
-        memberDao.insert(member);
-        System.out.println(memberDao.list());
-     */
-    }
 }

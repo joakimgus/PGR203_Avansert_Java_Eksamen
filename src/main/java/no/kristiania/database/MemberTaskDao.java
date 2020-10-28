@@ -34,7 +34,7 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
 
     public List <MemberTask> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM member_taks")) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM member_tasks")) {
                 try (ResultSet rs = statement.executeQuery()) {
                     List<MemberTask> members = new ArrayList<>();
                     while (rs.next()) {

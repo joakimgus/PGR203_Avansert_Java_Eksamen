@@ -2,6 +2,7 @@ package no.kristiania.http;
 
 import no.kristiania.database.Member;
 import no.kristiania.database.MemberDao;
+import no.kristiania.database.MemberTaskDao;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,9 @@ import java.util.logging.Logger;
 
 public class HttpServer {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(HttpServer.class);
 
-    private Map<String, HttpController> controllers;
+    private final Map<String, HttpController> controllers;
 
     private MemberDao memberDao;
     private ServerSocket serverSocket;
