@@ -112,6 +112,6 @@ class HttpServerTest {
         assertEquals(200, postClient.getStatusCode());
 
         HttpClient getClient = new HttpClient("localhost", server.getPort(), "/api/tasks");
-        assertThat(getClient.getResponseBody()).contains("<li>Oppgave+1</li>");
+        assertThat(getClient.getResponseBody()).contains("<li>Oppgave 1</li>");
     }
 }
