@@ -155,11 +155,11 @@ public class HttpServer {
     private void handleGetMembers(Socket clientSocket) throws IOException, SQLException {
         String body = "<ol>";
         for (Member member : memberDao.list()) {
-            body += "<li>" + member.getName() + ", " + member.getEmail() + "</li>";
+            body += "<li>" + URLDecoder.decode(member.getName(), "utf-8") + ", " + URLDecoder.decode(member.getEmail(), "utf-8") + "</li>";
         }
         body += "</ol>";
         String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + body.length() + "\r\n" +
+                "Content-Length: " + body.getBytes().length + "\r\n" +
                 "Content-Type: text/html\r\n" +
                 "Connection: close\r\n" +
                 "\r\n" +
