@@ -10,16 +10,10 @@
 
 <ul>
     <li><a href="/members.html"> List Members</a></li>
-    <li><a href="/newWorker.html">Add New Member</a></li>
+    <li><a href="/newMember.html">Add New Member</a></li>
     <li><a href="/editMember.html">Assign Task To Member</a></li>
     <li><a href="/tasks.html"> List Tasks</a></li>
     <li><a href="/newTask.html">Add New Task</a></li>
 </ul>
 </body>
-<script>
-    const projectMembers = document.getElementById("projectMembers");
-    fetch("/api/projectMembers")
-        .then(resp => resp.text())
-        .then(html => projectMembers.innerHTML = html);
-</script>
 </html>

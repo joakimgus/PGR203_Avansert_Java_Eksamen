@@ -1,6 +1,8 @@
 package no.kristiania.database;
 
 import javax.sql.DataSource;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,12 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
     protected MemberTask mapRow(ResultSet rs) throws SQLException {
         MemberTask task = new MemberTask();
         task.setId(rs.getInt("id"));
-        task.setTitle(rs.getString("title"));
+        String title = task.setTitle(rs.getString("title"));;
+        try {
+            task.setTitle(URLDecoder.decode(title, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return task;
     }
 }

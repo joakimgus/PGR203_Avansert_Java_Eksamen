@@ -82,7 +82,7 @@ public class HttpServer {
         } else {
             if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
-            } else if (requestPath.equals("/api/projectMembers")) {
+            } else if (requestPath.equals("/api/members")) {
                 handleGetMembers(clientSocket);
             } else {
                 HttpController controller = controllers.get(requestPath);

@@ -8,8 +8,9 @@ public class MemberTask {
         return title;
     }
 
-    public void setTitle(String title) {
+    public String setTitle(String title) {
         this.title = title;
+        return title;
     }
 
     public void setId(Integer id) {

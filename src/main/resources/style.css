@@ -7,3 +7,31 @@ body {
 a:visited, a:link {
     color: limegreen;
 }
+
+button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: monospace;
+    border: 1px solid limegreen;
+    color: limegreen;
+    background-color: black;
+    border-radius: 12px;
+    height: 30px;
+    width: 60px;
+}
+
+input {
+    margin-top: 5px;
+    background-color: black;
+    border-radius: 12px;
+    border: 1px solid limegreen;
+    color: limegreen;
+}
+
+select {
+    margin-top: 5px;
+    background-color: black;
+    border-radius: 12px;
+    border: 1px solid limegreen;
+    color: limegreen;
+}
