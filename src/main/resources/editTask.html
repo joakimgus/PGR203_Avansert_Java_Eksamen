@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<h3>Add Status To Task</h3>
 
+<form method="post" action="/api/updateTaks">
+    <p>Task: <select name="taskId" id="taskId" ></select></p>
+    <p>Status: <select name="statusId" id="statusId" ></select></p>
+    <button>Submit</button>
+</form>
+
+<br>
+<a href="/index.html">Return to front page</a>
 </body>
 </html>

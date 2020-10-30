@@ -3,6 +3,7 @@ package no.kristiania.http;
 import no.kristiania.database.Member;
 import no.kristiania.database.MemberDao;
 import no.kristiania.database.MemberTaskDao;
+import no.kristiania.database.StatusDao;
 
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -33,12 +34,17 @@ public class HttpServer {
     public HttpServer(int port, DataSource dataSource) throws IOException {
         memberDao = new MemberDao(dataSource);
         MemberTaskDao memberTaskDao = new MemberTaskDao(dataSource);
+        StatusDao statusDao = new StatusDao(dataSource);
         controllers = Map.of(
                 "/api/newTask", new MemberTaskPostController(memberTaskDao),
                 "/api/tasks", new MemberTaskGetController(memberTaskDao),
                 "/api/taskOptions", new MemberTaskOptionsController(memberTaskDao),
                 "/api/memberOptions", new MemberOptionsController(memberDao),
-                "/api/updateMember", new UpdateMemberController(memberDao)
+                "/api/updateMember", new UpdateMemberController(memberDao),
+                "/api/newStatus", new StatusPostController(statusDao),
+                "/api/status", new StatusGetController(statusDao),
+                "/api/statusOptions", new StatusOptionsController(statusDao),
+                "/api/updateTask", new UpdateTaskController(memberTaskDao)
         );
 
         serverSocket = new ServerSocket(port);

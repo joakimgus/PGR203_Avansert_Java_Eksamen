@@ -7,9 +7,13 @@
 </head>
 <body>
 
-<h1>Members:</h1>
+<h1>Members</h1>
 
 <div id="members"></div>
+
+<br>
+<a href="/index.html">Return to front page</a>
+
 </body>
 <script>
     fetch("/api/members").then(response => response.text()).then(html => {

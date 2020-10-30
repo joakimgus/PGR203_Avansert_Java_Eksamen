@@ -4,6 +4,10 @@ body {
     font-family: monospace;
 }
 
+li {
+    margin-top: 5px;
+}
+
 a:visited, a:link {
     color: limegreen;
 }

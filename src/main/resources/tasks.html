@@ -10,6 +10,9 @@
 <h1>Tasks</h1>
 
 <div id="tasks"></div>
+
+<br>
+<a href="/index.html">Return to front page</a>
 </body>
 <script>
     fetch("/api/tasks").then(response => response.text()).then(html => {

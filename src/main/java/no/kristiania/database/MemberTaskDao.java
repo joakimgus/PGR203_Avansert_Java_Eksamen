@@ -30,8 +30,38 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
         }
     }
 
+    public void update(MemberTask memberTask) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("UPDATE member_tasks SET status_id = ? WHERE id = ?")) {
+                statement.setInt(1, memberTask.getId());
+                statement.setInt(2, memberTask.getStatusId());
+                statement.executeUpdate();
+            }
+        }
+    }
+
     public MemberTask retrieve(Integer id) throws SQLException {
         return retrieve(id, "SELECT * FROM member_tasks WHERE id = ?");
+    }
+
+    @Override
+    protected MemberTask mapRow(ResultSet rs) throws SQLException {
+        MemberTask task = new MemberTask();
+        task.setId(rs.getInt("id"));
+        task.setStatusId((Integer) rs.getObject("status_id"));
+        String title = task.setTitle(rs.getString("title"));
+        try {
+            task.setTitle(URLDecoder.decode(title, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String statusName = task.setStatusName(rs.getString("status_name"));
+        try {
+            task.setStatusName(URLDecoder.decode(statusName, "UTF-8"));
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
+        return task;
     }
 
     public List <MemberTask> list() throws SQLException {
@@ -46,18 +76,5 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
                 }
             }
         }
-    }
-
-    @Override
-    protected MemberTask mapRow(ResultSet rs) throws SQLException {
-        MemberTask task = new MemberTask();
-        task.setId(rs.getInt("id"));
-        String title = task.setTitle(rs.getString("title"));;
-        try {
-            task.setTitle(URLDecoder.decode(title, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return task;
     }
 }
