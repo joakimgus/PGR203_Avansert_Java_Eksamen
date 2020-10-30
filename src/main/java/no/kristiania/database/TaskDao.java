@@ -32,8 +32,8 @@ public class TaskDao extends AbstractDao<Task> {
     public void update(Task task) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("UPDATE tasks SET status_id = ? WHERE id = ?")) {
-                statement.setInt(1, task.getId());
-                statement.setInt(2, task.getStatusId());
+                statement.setInt(1, task.getStatusId());
+                statement.setInt(2, task.getId());
                 statement.executeUpdate();
             }
         }
@@ -49,11 +49,11 @@ public class TaskDao extends AbstractDao<Task> {
         task.setId(rs.getInt("id"));
         task.setTitle(rs.getString("title"));
         task.setDescription(rs.getString("description"));
-
+        task.setStatusId((Integer) rs.getObject("status_id"));
         return task;
     }
 
-    public List <Task> list() throws SQLException {
+    public List<Task> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM tasks")) {
                 try (ResultSet rs = statement.executeQuery()) {

@@ -24,13 +24,13 @@ public class UpdateTaskController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
 
-        Integer id = Integer.valueOf(requestParameter.getParameter("id"));
+        Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
         Integer statusId = Integer.valueOf(requestParameter.getParameter("statusId"));
-        Task task = taskDao.retrieve(id);
-        /*memberTask.setStatusId(statusId);
+        Task task = taskDao.retrieve(taskId);
+        task.setStatusId(statusId);
 
-        memberTaskDao.update(memberTask);
-*/
+        taskDao.update(task);
+
         HttpMessage redirect = new HttpMessage();
         redirect.setStartLine("HTTP/1.1 302 Redirect");
         redirect.getHeaders().put("Location", "http://localhost:8080/index.html");
