@@ -4,7 +4,9 @@ import no.kristiania.database.Status;
 import no.kristiania.database.StatusDao;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 
 public class StatusOptionsController implements HttpController{
@@ -21,10 +23,10 @@ public class StatusOptionsController implements HttpController{
         response.write(clientSocket);
     }
 
-    public String getBody() throws SQLException {
+    public String getBody() throws SQLException, UnsupportedEncodingException {
         String body = "";
         for (Status status : statusDao.list()) {
-            body += "<option value=" + status.getId() + ">" + status.getName() + "</option>";
+            body += "<option value=" + status.getId() + ">" + URLDecoder.decode(status.getName(), "UTF-8") + "</option>";
         }
         return body;
     }

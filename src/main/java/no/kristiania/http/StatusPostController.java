@@ -5,6 +5,7 @@ import no.kristiania.database.StatusDao;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 
 public class StatusPostController implements HttpController {
@@ -20,7 +21,8 @@ public class StatusPostController implements HttpController {
         QueryString requestParameter = new QueryString(request.getBody());
 
         Status status = new Status();
-        status.setName(requestParameter.getParameter("statusName"));
+        String statusName = status.setName(requestParameter.getParameter("statusName"));
+        status.setName(URLDecoder.decode(statusName, "UTF-8"));
         statusDao.insert(status);
 
         String body = "Okay";
