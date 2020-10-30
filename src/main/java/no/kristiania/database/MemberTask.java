@@ -1,15 +1,35 @@
 package no.kristiania.database;
 
 public class MemberTask {
-
-    // Task
+    private String memberName;
+    private String taskTitle;
+    private Integer memberTaskId;
     private String title;
-    private Integer id;
 
-    // Description of task
-    private String description;
+    public String getMemberName() {
+        return memberName;
+    }
 
-    // SET & GET TASK
+    public String setMemberName(String memberName) {
+        this.memberName = memberName;
+        return memberName;
+    }
+
+    public String getTaskTitle() {
+        return taskTitle;
+    }
+
+    public String setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
+        return taskTitle;
+    }
+
+    public Integer getMemberTaskId() {return memberTaskId;}
+
+    public void setMemberTaskId(Integer memberTaskId) {
+        this.memberTaskId = memberTaskId;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -17,20 +37,5 @@ public class MemberTask {
     public String setTitle(String title) {
         this.title = title;
         return title;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    // SET & GET DESCRIPTION
-    public String getDescription() { return description; }
-    public String setDescription(String description) {
-        this.description = description;
-        return description;
     }
 }

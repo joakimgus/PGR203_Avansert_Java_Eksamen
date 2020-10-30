@@ -16,7 +16,7 @@ public class StatusDao extends AbstractDao<Status>{
     public void insert(Status status) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO task_status (status_name) values (?)",
+                    "INSERT INTO status (status_name) values (?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, status.getName());
@@ -31,31 +31,26 @@ public class StatusDao extends AbstractDao<Status>{
     }
 
     public Status retrieve(Integer id) throws SQLException {
-        return retrieve(id, "SELECT * FROM task_status WHERE id = ?");
+        return retrieve(id, "SELECT * FROM status WHERE id = ?");
     }
 
     @Override
     protected Status mapRow(ResultSet rs) throws SQLException {
         Status status = new Status();
         status.setId(rs.getInt("id"));
-        String name = status.setName(rs.getString("stats"));;
-        try {
-            status.setName(URLDecoder.decode(name, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        status.setName(rs.getString("status_name"));
         return status;
     }
 
     public List <Status> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM task_status")) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM status")) {
                 try (ResultSet rs = statement.executeQuery()) {
-                    List<Status> tasks = new ArrayList<>();
+                    List<Status> statuses = new ArrayList<>();
                     while (rs.next()) {
-                        tasks.add(mapRow(rs));
+                        statuses.add(mapRow(rs));
                     }
-                    return tasks;
+                    return statuses;
                 }
             }
         }

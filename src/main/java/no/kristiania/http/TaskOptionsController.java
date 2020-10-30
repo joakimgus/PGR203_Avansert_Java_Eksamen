@@ -1,7 +1,7 @@
 package no.kristiania.http;
 
-import no.kristiania.database.MemberTask;
-import no.kristiania.database.MemberTaskDao;
+import no.kristiania.database.Task;
+import no.kristiania.database.TaskDao;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -9,11 +9,11 @@ import java.net.Socket;
 import java.net.URLDecoder;
 import java.sql.SQLException;
 
-public class MemberTaskOptionsController implements HttpController {
-    private MemberTaskDao taskDao;
+public class TaskOptionsController implements HttpController {
+    private TaskDao taskDao;
 
-    public MemberTaskOptionsController(MemberTaskDao memberTaskDao) {
-        this.taskDao = memberTaskDao;
+    public TaskOptionsController(TaskDao taskDao) {
+        this.taskDao = taskDao;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class MemberTaskOptionsController implements HttpController {
 
     public String getBody() throws SQLException, UnsupportedEncodingException {
         String body = "";
-        for (MemberTask task : taskDao.list()) {
+        for (Task task : taskDao.list()) {
             body += "<option value=" + task.getId() + ">" + URLDecoder.decode(task.getTitle(), "utf-8") + "</option>";
         }
         return body;

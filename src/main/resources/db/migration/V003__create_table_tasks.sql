@@ -1,4 +1,4 @@
-create table member_tasks (
+create table tasks (
     id serial primary key,
     title varchar,
     description varchar

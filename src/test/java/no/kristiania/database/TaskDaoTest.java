@@ -1,6 +1,6 @@
 package no.kristiania.database;
 
-import no.kristiania.http.MemberTaskOptionsController;
+import no.kristiania.http.TaskOptionsController;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskDaoTest {
 
-    private MemberTaskDao taskDao;
+    private TaskDao taskDao;
     private static Random random = new Random();
 
     @BeforeEach
@@ -22,17 +22,17 @@ public class TaskDaoTest {
         JdbcDataSource dataSource = new JdbcDataSource();
         dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         Flyway.configure().dataSource(dataSource).load().migrate();
-        taskDao = new MemberTaskDao(dataSource);
+        taskDao = new TaskDao(dataSource);
     }
 
     @Test
     void shouldListAllTasks() throws SQLException {
-        MemberTask task1 = exampleTask();
-        MemberTask task2 = exampleTask();
+        Task task1 = exampleTask();
+        Task task2 = exampleTask();
         taskDao.insert(task1);
         taskDao.insert(task2);
         assertThat(taskDao.list())
-                .extracting(MemberTask::getTitle)
+                .extracting(Task::getTitle)
                 .contains(task1.getTitle(), task2.getTitle());
     }
 
@@ -41,7 +41,7 @@ public class TaskDaoTest {
         taskDao.insert(exampleTask());
         taskDao.insert(exampleTask());
 
-        MemberTask task = exampleTask();
+        Task task = exampleTask();
         taskDao.insert(task);
         assertThat(task).hasNoNullFieldsOrProperties();
 
@@ -52,16 +52,16 @@ public class TaskDaoTest {
 
     @Test
     void shouldReturnTasksAsOptions() throws SQLException, UnsupportedEncodingException {
-        MemberTaskOptionsController controller = new MemberTaskOptionsController(taskDao);
-        MemberTask memberTask = exampleTask();
-        taskDao.insert(memberTask);
+        TaskOptionsController controller = new TaskOptionsController(taskDao);
+        Task task = exampleTask();
+        taskDao.insert(task);
 
         assertThat(controller.getBody())
-                .contains("<option value=" + memberTask.getId() + ">" + memberTask.getTitle() + "</option>");
+                .contains("<option value=" + task.getId() + ">" + task.getTitle() + "</option>");
     }
 
-    public static MemberTask exampleTask() {
-        MemberTask task = new MemberTask();
+    public static Task exampleTask() {
+        Task task = new Task();
         task.setTitle(exampleTaskTitle());
         return task;
     }

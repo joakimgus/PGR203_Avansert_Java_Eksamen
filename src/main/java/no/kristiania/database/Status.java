@@ -1,6 +1,7 @@
 package no.kristiania.database;
 
 public class Status {
+
     private String name;
     private Integer id;
 

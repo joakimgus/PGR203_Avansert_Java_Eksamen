@@ -1,18 +1,18 @@
 package no.kristiania.http;
 
-import no.kristiania.database.MemberTask;
-import no.kristiania.database.MemberTaskDao;
+import no.kristiania.database.Task;
+import no.kristiania.database.TaskDao;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.sql.SQLException;
 
-public class MemberTaskPostController implements HttpController {
-    private final MemberTaskDao memberTaskDao;
+public class TaskPostController implements HttpController {
+    private final TaskDao taskDao;
 
-    public MemberTaskPostController(MemberTaskDao memberTaskDao) {
-        this.memberTaskDao = memberTaskDao;
+    public TaskPostController(TaskDao taskDao) {
+        this.taskDao = taskDao;
     }
 
     @Override
@@ -20,12 +20,12 @@ public class MemberTaskPostController implements HttpController {
 
         QueryString requestParameter = new QueryString(request.getBody());
 
-        MemberTask task = new MemberTask();
+        Task task = new Task();
         String taskTitle = task.setTitle(requestParameter.getParameter("taskTitle"));
         task.setTitle(URLDecoder.decode(taskTitle, "UTF-8"));
         String taskDescription = task.setDescription(requestParameter.getParameter("taskDescription"));
         task.setDescription(URLDecoder.decode(taskDescription, "UTF-8"));
-        memberTaskDao.insert(task);
+        taskDao.insert(task);
 
         String body = "Okay";
         String response = "HTTP/1.1 200 OK\r\n" +

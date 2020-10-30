@@ -18,7 +18,7 @@ class MemberDaoTest {
 
     private MemberDao memberDao;
     private static Random random = new Random();
-    private MemberTaskDao taskDao;
+    private TaskDao taskDao;
 
     @BeforeEach
     void setUp() {
@@ -26,7 +26,7 @@ class MemberDaoTest {
         dataSource.setUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
         Flyway.configure().dataSource(dataSource).load().migrate();
         memberDao = new MemberDao(dataSource);
-        taskDao = new MemberTaskDao(dataSource);
+        taskDao = new TaskDao(dataSource);
     }
 
     @Test
@@ -69,7 +69,7 @@ class MemberDaoTest {
         Member member = exampleMember();
         memberDao.insert(member);
 
-        MemberTask task = TaskDaoTest.exampleTask();
+        Task task = TaskDaoTest.exampleTask();
         taskDao.insert(task);
 
         String body = "memberId=" + member.getId() + "&taskId=" + task.getId();

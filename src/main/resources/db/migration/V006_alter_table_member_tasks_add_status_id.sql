@@ -1,1 +1,0 @@
-alter table member_tasks add column status_id integer null references task_status(id);

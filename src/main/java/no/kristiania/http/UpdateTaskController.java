@@ -1,7 +1,7 @@
 package no.kristiania.http;
 
-import no.kristiania.database.MemberTask;
-import no.kristiania.database.MemberTaskDao;
+import no.kristiania.database.Task;
+import no.kristiania.database.TaskDao;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -9,10 +9,10 @@ import java.sql.SQLException;
 
 public class UpdateTaskController implements HttpController {
 
-    private MemberTaskDao memberTaskDao;
+    private TaskDao taskDao;
 
-    public UpdateTaskController(MemberTaskDao memberTaskDao) {
-        this.memberTaskDao = memberTaskDao;
+    public UpdateTaskController(TaskDao taskDao) {
+        this.taskDao = taskDao;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class UpdateTaskController implements HttpController {
 
         Integer id = Integer.valueOf(requestParameter.getParameter("id"));
         Integer statusId = Integer.valueOf(requestParameter.getParameter("statusId"));
-        MemberTask memberTask = memberTaskDao.retrieve(id);
+        Task task = taskDao.retrieve(id);
         /*memberTask.setStatusId(statusId);
 
         memberTaskDao.update(memberTask);
