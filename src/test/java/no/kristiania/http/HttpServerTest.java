@@ -101,7 +101,7 @@ class HttpServerTest {
         member.setName("John Smith");
         member.setEmail("john@smith.com");
         memberDao.insert(member);
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/projectMembers");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/members");
         assertThat(client.getResponseBody()).contains("<li>John Smith, john@smith.com</li>");
     }
 

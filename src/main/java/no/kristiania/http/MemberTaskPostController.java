@@ -5,6 +5,7 @@ import no.kristiania.database.MemberTaskDao;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 
 public class MemberTaskPostController implements HttpController {
@@ -20,7 +21,10 @@ public class MemberTaskPostController implements HttpController {
         QueryString requestParameter = new QueryString(request.getBody());
 
         MemberTask task = new MemberTask();
-        task.setTitle(requestParameter.getParameter("taskTitle"));
+        String taskTitle = task.setTitle(requestParameter.getParameter("taskTitle"));
+        task.setTitle(URLDecoder.decode(taskTitle, "UTF-8"));
+        String taskDescription = task.setDescription(requestParameter.getParameter("taskDescription"));
+        task.setDescription(URLDecoder.decode(taskDescription, "UTF-8"));
         memberTaskDao.insert(task);
 
         String body = "Okay";

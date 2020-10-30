@@ -1,4 +1,5 @@
 create table member_tasks (
     id serial primary key,
-    title varchar
+    title varchar,
+    description varchar
 )

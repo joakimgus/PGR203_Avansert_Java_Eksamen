@@ -20,7 +20,7 @@ public class MemberTaskGetController implements HttpController {
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
         for (MemberTask task : memberTaskDao.list()) {
-            body += "<li>" + URLDecoder.decode(task.getTitle(), "utf-8") + "</li>";
+            body += "<li>" + URLDecoder.decode(task.getTitle(), "UTF-8") + "<br>" + task.getDescription() + "</li>";
         }
 
         body += "</ul>";

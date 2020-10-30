@@ -6,6 +6,7 @@ import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.Random;
 
@@ -50,7 +51,7 @@ public class TaskDaoTest {
     }
 
     @Test
-    void shouldReturnTasksAsOptions() throws SQLException {
+    void shouldReturnTasksAsOptions() throws SQLException, UnsupportedEncodingException {
         MemberTaskOptionsController controller = new MemberTaskOptionsController(taskDao);
         MemberTask memberTask = exampleTask();
         taskDao.insert(memberTask);

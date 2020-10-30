@@ -16,10 +16,11 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
     public void insert(MemberTask task) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO member_tasks (title) values (?)",
+                    "INSERT INTO member_tasks (title, description) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, task.getTitle());
+                statement.setString(2, task.getDescription());
                 statement.executeUpdate();
 
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -29,7 +30,7 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
             }
         }
     }
-
+/*
     public void update(MemberTask memberTask) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("UPDATE member_tasks SET status_id = ? WHERE id = ?")) {
@@ -39,6 +40,7 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
             }
         }
     }
+    */
 
     public MemberTask retrieve(Integer id) throws SQLException {
         return retrieve(id, "SELECT * FROM member_tasks WHERE id = ?");
@@ -48,19 +50,9 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
     protected MemberTask mapRow(ResultSet rs) throws SQLException {
         MemberTask task = new MemberTask();
         task.setId(rs.getInt("id"));
-        task.setStatusId((Integer) rs.getObject("status_id"));
-        String title = task.setTitle(rs.getString("title"));
-        try {
-            task.setTitle(URLDecoder.decode(title, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        String statusName = task.setStatusName(rs.getString("status_name"));
-        try {
-            task.setStatusName(URLDecoder.decode(statusName, "UTF-8"));
-        } catch (UnsupportedEncodingException e){
-            e.printStackTrace();
-        }
+        task.setTitle(rs.getString("title"));
+        task.setDescription(rs.getString("description"));
+
         return task;
     }
 

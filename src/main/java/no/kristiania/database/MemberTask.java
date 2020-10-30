@@ -1,11 +1,15 @@
 package no.kristiania.database;
 
 public class MemberTask {
-    private String title;
-    private String statusName;
-    private Integer id;
-    private Integer statusId;
 
+    // Task
+    private String title;
+    private Integer id;
+
+    // Description of task
+    private String description;
+
+    // SET & GET TASK
     public String getTitle() {
         return title;
     }
@@ -23,20 +27,10 @@ public class MemberTask {
         this.id = id;
     }
 
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public String setStatusName(String statusName) {
-        this.statusName = statusName;
-        return statusName;
-    }
-
-    public Integer getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(Integer statusId) {
-        this.statusId = statusId;
+    // SET & GET DESCRIPTION
+    public String getDescription() { return description; }
+    public String setDescription(String description) {
+        this.description = description;
+        return description;
     }
 }

@@ -1,7 +1,5 @@
 package no.kristiania.http;
 
-import no.kristiania.database.Member;
-import no.kristiania.database.MemberDao;
 import no.kristiania.database.MemberTask;
 import no.kristiania.database.MemberTaskDao;
 
@@ -26,13 +24,13 @@ public class UpdateTaskController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
 
-        Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
+        Integer id = Integer.valueOf(requestParameter.getParameter("id"));
         Integer statusId = Integer.valueOf(requestParameter.getParameter("statusId"));
-        MemberTask memberTask = memberTaskDao.retrieve(taskId);
-        memberTask.setStatusId(statusId);
+        MemberTask memberTask = memberTaskDao.retrieve(id);
+        /*memberTask.setStatusId(statusId);
 
         memberTaskDao.update(memberTask);
-
+*/
         HttpMessage redirect = new HttpMessage();
         redirect.setStartLine("HTTP/1.1 302 Redirect");
         redirect.getHeaders().put("Location", "http://localhost:8080/index.html");

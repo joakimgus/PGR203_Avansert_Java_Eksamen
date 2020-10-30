@@ -4,7 +4,9 @@ import no.kristiania.database.MemberTask;
 import no.kristiania.database.MemberTaskDao;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 
 public class MemberTaskOptionsController implements HttpController {
@@ -20,10 +22,10 @@ public class MemberTaskOptionsController implements HttpController {
         response.write(clientSocket);
     }
 
-    public String getBody() throws SQLException {
+    public String getBody() throws SQLException, UnsupportedEncodingException {
         String body = "";
         for (MemberTask task : taskDao.list()) {
-            body += "<option value=" + task.getId() + ">" + task.getTitle() + "</option>";
+            body += "<option value=" + task.getId() + ">" + URLDecoder.decode(task.getTitle(), "utf-8") + "</option>";
         }
         return body;
     }
