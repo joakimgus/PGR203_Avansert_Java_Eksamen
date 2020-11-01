@@ -19,7 +19,7 @@ public class TaskGetController implements HttpController {
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
         for (Task task : taskDao.list()) {
-            body += "<li>" + URLDecoder.decode(task.getTitle(), "UTF-8") + "<br>" + task.getDescription() + "</li>";
+            body += "<li>" + "Task ID: " + task.getId() + " | Title: " + URLDecoder.decode(task.getTitle(), "UTF-8") + "<br>Description:<br>" + task.getDescription() + "<br>______________________________<br>" + "</li>";
         }
 
         body += "</ul>";

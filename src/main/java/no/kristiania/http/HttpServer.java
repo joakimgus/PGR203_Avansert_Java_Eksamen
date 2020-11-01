@@ -1,9 +1,6 @@
 package no.kristiania.http;
 
-import no.kristiania.database.Member;
-import no.kristiania.database.MemberDao;
-import no.kristiania.database.TaskDao;
-import no.kristiania.database.StatusDao;
+import no.kristiania.database.*;
 
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -159,11 +156,11 @@ public class HttpServer {
 
     /* Endre visning av medlemmer og oppgaver gitt til medlemmer her */
     private void handleGetMembers(Socket clientSocket) throws IOException, SQLException {
-        String body = "<ol>";
+        String body = "<ul>";
         for (Member member : memberDao.list()) {
-            body += "<li>" + member.getName() + ", " + member.getEmail() + "(Task id: " + member.getTaskId() + ")" + "</li>";
+            body += "<li>" + "Name: "+ member.getName() + "<br>Email: " + member.getEmail() + "<br>Task ID: " + member.getTaskId() + "<br>______________________________<br>" + "</li>";
         }
-        body += "</ol>";
+        body += "</ul>";
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.getBytes().length + "\r\n" +
                 "Content-Type: text/html\r\n" +

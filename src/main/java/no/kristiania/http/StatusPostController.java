@@ -25,10 +25,11 @@ public class StatusPostController implements HttpController {
         status.setName(URLDecoder.decode(statusName, "UTF-8"));
         statusDao.insert(status);
 
-        String body = "Okay";
-        String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + body.length() + "\r\n" +
+        String body = "Status " + "added." + "\r\n";
+        String response = "HTTP/1.1 302 Found\r\n" +
+                "Location: http://localhost:8080/index.html\r\n" +
                 "Connection: close\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
                 "\r\n" +
                 body;
 

@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class UpdateMemberController implements HttpController {
-    private MemberDao memberDao;
+    private final MemberDao memberDao;
 
     public UpdateMemberController(MemberDao memberDao) {
         this.memberDao = memberDao;
@@ -32,7 +32,7 @@ public class UpdateMemberController implements HttpController {
 
         HttpMessage redirect = new HttpMessage();
         redirect.setStartLine("HTTP/1.1 302 Redirect");
-        redirect.getHeaders().put("Location", "http://localhost:8080/index.html");
+        redirect.getHeaders().put("Location", "http://localhost:8080/members.html");
         return redirect;
     }
 }
