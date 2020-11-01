@@ -161,7 +161,7 @@ public class HttpServer {
     private void handleGetMembers(Socket clientSocket) throws IOException, SQLException {
         String body = "<ol>";
         for (Member member : memberDao.list()) {
-            body += "<li>" + member.getName() + ", " + member.getEmail() + "</li>";
+            body += "<li>" + member.getName() + ", " + member.getEmail() + "(Task id: " + member.getTaskId() + ")" + "</li>";
         }
         body += "</ol>";
         String response = "HTTP/1.1 200 OK\r\n" +

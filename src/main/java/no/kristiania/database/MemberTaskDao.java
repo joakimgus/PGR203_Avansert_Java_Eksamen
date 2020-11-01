@@ -17,8 +17,8 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
                     "INSERT INTO member_task (member_name, task_title, task_description) SELECT members.member_name, title, description FROM members Inner Join tasks t on t.id = members.task_id",
                     Statement.RETURN_GENERATED_KEYS
             )) {
-                statement.setString(1, memberTask.getMemberName());
-                statement.setString(2, memberTask.getTaskTitle());
+                statement.setString(1, memberTask.getMember_name());
+                statement.setString(2, memberTask.getTask_title());
                 statement.executeUpdate();
 
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -31,9 +31,10 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
 
     public void update(MemberTask memberTask) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("UPDATE member_task SET task_title = ? WHERE title = ?")) {
-                statement.setString(1, memberTask.getTaskTitle());
-                statement.setString(2, memberTask.getTitle());
+            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO member_task (member_name, task_title, task_description) SELECT members.member_name, title, description FROM members Inner Join tasks t on t.id = members.task_id")) {
+                statement.setString(1, memberTask.getMember_name());
+                statement.setString(2, memberTask.getTask_title());
+                statement.setString(3, memberTask.getTask_description());
                 statement.executeUpdate();
             }
         }
@@ -46,9 +47,12 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
     @Override
     protected MemberTask mapRow(ResultSet rs) throws SQLException {
         MemberTask memberTask = new MemberTask();
+        Member member = new Member();
+        Task task = new Task();
         memberTask.setMemberTaskId(rs.getInt("member_task_id"));
-        memberTask.setMemberName(rs.getString("member_name"));
-        memberTask.setTaskTitle(rs.getString("task_title"));
+        memberTask.setMember_name((String) rs.getObject(member.setName(rs.getString("member_name"))));
+        memberTask.setTask_title((String) rs.getObject(task.setTitle(rs.getString("title"))));
+        memberTask.setTask_description((String) rs.getObject(task.setDescription(rs.getString("description"))));
         return memberTask;
     }
 
