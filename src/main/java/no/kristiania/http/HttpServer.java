@@ -158,7 +158,11 @@ public class HttpServer {
     private void handleGetMembers(Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
         for (Member member : memberDao.list()) {
-            body += "<li>" + "Name: "+ member.getName() + "<br>Email: " + member.getEmail() + "<br>Task ID: " + member.getTaskId() + "<br>______________________________<br>" + "</li>";
+            if (member.getTaskId() != null) {
+                body += "<li>" + "Name: " + member.getName() + "<br>Email: " + member.getEmail() + "<br>Task ID: " + member.getTaskId() + "<br>______________________________<br>" + "</li>";
+            } else {
+                body += "<li>" + "Name: " + member.getName() + "<br>Email: " + member.getEmail() + "<br>Task ID: 404 Not found" + "<br>______________________________<br>" + "</li>";
+            }
         }
         body += "</ul>";
         String response = "HTTP/1.1 200 OK\r\n" +
