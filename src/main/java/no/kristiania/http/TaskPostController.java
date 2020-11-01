@@ -27,13 +27,13 @@ public class TaskPostController implements HttpController {
         task.setDescription(URLDecoder.decode(taskDescription, "UTF-8"));
         taskDao.insert(task);
 
-        String body = "Okay";
-        String response = "HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + body.length() + "\r\n" +
+        String body = "Task " + "added." + "\r\n";
+        String response = "HTTP/1.1 302 Found\r\n" +
+                "Location: http://localhost:8080/index.html\r\n" +
                 "Connection: close\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
                 "\r\n" +
                 body;
-
         clientSocket.getOutputStream().write(response.getBytes());
     }
 }
