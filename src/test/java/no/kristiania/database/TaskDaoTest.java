@@ -43,7 +43,7 @@ public class TaskDaoTest {
 
         Task task = exampleTask();
         taskDao.insert(task);
-        assertThat(task).hasNoNullFieldsOrProperties();
+        assertThat(task).hasNoNullFieldsOrPropertiesExcept("statusId");
 
         assertThat(taskDao.retrieve(task.getId()))
                 .usingRecursiveComparison()
@@ -63,7 +63,14 @@ public class TaskDaoTest {
     public static Task exampleTask() {
         Task task = new Task();
         task.setTitle(exampleTaskTitle());
+        task.setDescription(exampleDescription());
         return task;
+    }
+
+
+    private static String exampleDescription() {
+        String[] desc = {"test", "test2"};
+        return desc[random.nextInt(desc.length)];
     }
 
     private static String exampleTaskTitle() {

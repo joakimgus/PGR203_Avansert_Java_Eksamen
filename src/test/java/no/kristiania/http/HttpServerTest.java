@@ -102,16 +102,16 @@ class HttpServerTest {
         member.setEmail("john@smith.com");
         memberDao.insert(member);
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/members");
-        assertThat(client.getResponseBody()).contains("<li>John Smith, john@smith.com</li>");
+        assertThat(client.getResponseBody()).contains("John Smith", "john@smith.com");
     }
 
     @Test
     void shouldPostNewTask() throws IOException, SQLException {
-        String requestBody = "taskTitle=Oppgave+1&color=black";
+        String requestBody = "taskTitle=Oppgave+1&taskDescription=black";
         HttpClient postClient = new HttpClient("localhost", server.getPort(), "/api/newTask", "POST", requestBody);
-        assertEquals(200, postClient.getStatusCode());
+        assertEquals(302, postClient.getStatusCode());
 
         HttpClient getClient = new HttpClient("localhost", server.getPort(), "/api/tasks");
-        assertThat(getClient.getResponseBody()).contains("<li>Oppgave 1</li>");
+        assertThat(getClient.getResponseBody()).contains("Oppgave 1");
     }
 }

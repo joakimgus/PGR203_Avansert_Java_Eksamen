@@ -80,7 +80,7 @@ class MemberDaoTest {
         assertThat(response.getStartLine())
                 .isEqualTo("HTTP/1.1 302 Redirect");
         assertThat(response.getHeaders().get("Location"))
-                .isEqualTo("http://localhost:8080/index.html");
+                .isEqualTo("http://localhost:8080/members.html");
     }
 
     public static Member exampleMember() {
