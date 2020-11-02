@@ -23,7 +23,7 @@ public class MemberDao extends AbstractDao<Member> {
     public void insert(Member member) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO members (member_name, email) values (?, ?)",
+                    "INSERT INTO members (name, email) values (?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, member.getName());
@@ -56,8 +56,7 @@ public class MemberDao extends AbstractDao<Member> {
     protected Member mapRow(ResultSet rs) throws SQLException {
         Member member = new Member();
         member.setId(rs.getInt("id"));
-        member.setTaskId((Integer) rs.getObject("task_id"));
-        member.setName(rs.getString("member_name"));
+        member.setName(rs.getString("name"));
         member.setEmail(rs.getString("email"));
         return member;
     }

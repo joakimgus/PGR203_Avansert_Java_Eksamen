@@ -82,7 +82,7 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
         if (requestMethod.equals("POST")) {
-            if (requestPath.equals("/api/newMember")) {
+            if (requestPath.equals("/api/members")) {
                 handlePostMember(clientSocket, request);
             } else {
                 getController(requestPath).handle(request, clientSocket);
@@ -176,12 +176,9 @@ public class HttpServer {
     private void handleGetMembers(Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
         for (Member member : memberDao.list()) {
-            if (member.getTaskId() != null) {
-                body += "<li>" + "Name: " + member.getName() + "<br>Email: " + member.getEmail() + "<br>Task ID: " + member.getTaskId() + "<br>______________________________<br>" + "</li>";
-            } else {
                 body += "<li>" + "Name: " + member.getName() + "<br>Email: " + member.getEmail() + "<br>Task ID: 404 Not found" + "<br>______________________________<br>" + "</li>";
-            }
         }
+
         body += "</ul>";
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.getBytes().length + "\r\n" +
