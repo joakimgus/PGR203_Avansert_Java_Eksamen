@@ -83,7 +83,9 @@ public class HttpServer {
                 getController(requestPath).handle(request, clientSocket);
             }
         } else {
-            if (requestPath.equals("/echo")) {
+            if (requestPath.equals("/")) {
+                handleSlashRequest(clientSocket);
+            } else if (requestPath.equals("/echo")) {
                 handleEchoRequest(clientSocket, requestTarget, questionPos);
             } else if (requestPath.equals("/api/members")) {
                 handleGetMembers(clientSocket);
@@ -114,6 +116,17 @@ public class HttpServer {
         String body = "Member " + URLDecoder.decode(fullName, "UTF-8") + " added." + "\r\n";
         String response = "HTTP/1.1 302 Found\r\n" +
                 "Location: http://localhost:8080/index.html\r\n" +
+                "Connection: close\r\n" +
+                "Content-Length: " + body.length() + "\r\n" +
+                "\r\n" +
+                body;
+        clientSocket.getOutputStream().write(response.getBytes());
+    }
+
+    private void handleSlashRequest(Socket clientSocket) throws IOException {
+        String body = "Redirecting to index";
+        String response = "HTTP/1.1 302 Redirect\r\n" +
+                "Location: /index.html\r\n" +
                 "Connection: close\r\n" +
                 "Content-Length: " + body.length() + "\r\n" +
                 "\r\n" +
