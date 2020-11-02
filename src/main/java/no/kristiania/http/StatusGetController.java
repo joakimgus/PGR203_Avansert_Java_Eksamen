@@ -2,6 +2,7 @@ package no.kristiania.http;
 
 import no.kristiania.database.Status;
 import no.kristiania.database.StatusDao;
+import no.kristiania.database.Task;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -9,7 +10,7 @@ import java.net.URLDecoder;
 import java.sql.SQLException;
 
 public class StatusGetController implements HttpController{
-    private StatusDao statusDao;
+    private final StatusDao statusDao;
 
     public StatusGetController(StatusDao statusDao) {
             this.statusDao = statusDao;

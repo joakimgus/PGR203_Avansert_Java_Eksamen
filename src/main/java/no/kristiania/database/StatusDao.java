@@ -14,6 +14,7 @@ public class StatusDao extends AbstractDao<Status>{
     }
 
     public void insert(Status status) throws SQLException {
+
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO status (status_name) values (?)",
