@@ -23,7 +23,8 @@ public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
-    private final Map<String, HttpController> controllers;
+    private final Map<String, HttpController> controllersGET;
+    private final Map<String, HttpController> controllersPOST;
 
     private MemberDao memberDao;
     private ServerSocket serverSocket;
@@ -31,17 +32,22 @@ public class HttpServer {
     public HttpServer(int port, DataSource dataSource) throws IOException {
         memberDao = new MemberDao(dataSource);
         TaskDao taskDao = new TaskDao(dataSource);
+        /*MemberTaskDao memberTaskDao = new MemberTaskDao(dataSource);*/
         StatusDao statusDao = new StatusDao(dataSource);
-        controllers = Map.of(
-                "/api/newTask", new TaskPostController(taskDao),
-                "/api/tasks", new TaskGetController(taskDao),
-                "/api/taskOptions", new TaskOptionsController(taskDao),
-                "/api/memberOptions", new MemberOptionsController(memberDao),
+        controllersPOST = Map.of(
+                "/api/tasks", new TaskPostController(taskDao),
                 "/api/updateMember", new UpdateMemberController(memberDao),
                 "/api/newStatus", new StatusPostController(statusDao),
-                "/api/status", new StatusGetController(statusDao),
-                "/api/statusOptions", new StatusOptionsController(statusDao),
                 "/api/updateTask", new UpdateTaskController(taskDao)
+          /*      "/api/POSTmembertask", new MemberTaskController(memberDao, taskDao, memberTaskDao),
+                "/api/something", new MemberTaskController(memberDao, taskDao, memberTaskDao) */
+        );
+
+        controllersGET = Map.of(
+                "/api/tasks", new TaskGetController(taskDao),
+                "/api/statusOptions", new StatusOptionsController(statusDao),
+                "/api/taskOptions", new TaskOptionsController(taskDao),
+                "/api/memberOptions", new MemberOptionsController(memberDao)
         );
 
         serverSocket = new ServerSocket(port);
@@ -76,7 +82,6 @@ public class HttpServer {
         String requestPath = questionPos != -1 ? requestTarget.substring(0, questionPos) : requestTarget;
 
         if (requestMethod.equals("POST")) {
-
             if (requestPath.equals("/api/newMember")) {
                 handlePostMember(clientSocket, request);
             } else {
@@ -90,7 +95,7 @@ public class HttpServer {
             } else if (requestPath.equals("/api/members")) {
                 handleGetMembers(clientSocket);
             } else {
-                HttpController controller = controllers.get(requestPath);
+                HttpController controller = controllersGET.get(requestPath);
                 if (controller != null) {
                     controller.handle(request, clientSocket);
                 } else {
@@ -101,7 +106,7 @@ public class HttpServer {
     }
 
     private HttpController getController(String requestPath) {
-        return controllers.get(requestPath);
+        return controllersPOST.get(requestPath);
     }
 
     private void handlePostMember(Socket clientSocket, HttpMessage request) throws SQLException, IOException {
