@@ -4,7 +4,6 @@ public class Member {
     private String name;
     private String email;
     private Integer id;
-    private Integer taskId;
 
     public String getName() {
         return name;
@@ -30,13 +29,5 @@ public class Member {
     public String setEmail(String email) {
         this.email = email;
         return email;
-    }
-
-    public Integer getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
     }
 }

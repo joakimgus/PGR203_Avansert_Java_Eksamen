@@ -14,7 +14,7 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
     public void insert(MemberTask memberTask) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO member_task (name, title, description) values (?, ?, ?)",
+                    "INSERT INTO members_with_tasks (name, title, description) values (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, memberTask.getMemberName());

@@ -56,7 +56,8 @@ public class TaskDao extends AbstractDao<Task> {
 
     public List<Task> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM tasks")) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT t.id, t.title, t.description, t.status_id, s.status_name\n" +
+                    "from tasks t left join status s on t.status_id = s.id")) {
                 try (ResultSet rs = statement.executeQuery()) {
                     List<Task> tasks = new ArrayList<>();
                     while (rs.next()) {
