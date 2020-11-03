@@ -9,39 +9,27 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class addMembersWithTasksGetController implements HttpController{
-    private MemberDao memberDao;
-    private TaskDao taskDao;
     private MemberTaskDao memberTaskDao;
 
-    public addMembersWithTasksGetController(MemberDao memberDao, TaskDao taskDao, MemberTaskDao memberTaskDao) {
-        this.memberDao = memberDao;
-        this.taskDao = taskDao;
+    public addMembersWithTasksGetController(MemberTaskDao memberTaskDao) {
         this.memberTaskDao = memberTaskDao;
     }
 
-
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
-        String body = "<ul>";
-
-        /*
-        for(MemberTask memberTask : memberTaskDao.list()) {
-            body += "<li>" + "Title: " + memberTask.getTaskTitle() + "<br> Description: " + memberTask.getTaskDescription()
-            if ()
-                body+="<br> Member: " + memberTask.getMemberName() + "<br> ------------------------------------- <br>";
-        }
-        */
+        String body = "<div>";
         List<MemberTask> memberTasks = memberTaskDao.list();
-        for ( int i = 0; i < memberTasks.size(); i++) {
-            if( i > 0 && memberTasks.get(i-1).getTaskTitle() != memberTasks.get(i).getTaskTitle() ) {
-                body += "<li>" + "Title: " + memberTasks.get(i).getTaskTitle() + "<br> Description: " + memberTasks.get(i).getTaskDescription() + "<br> Member: " + memberTasks.get(i).getMemberName();
+        body += "Title: " + memberTasks.get(0).getTaskTitle() + "<br> Description: " + memberTasks.get(0).getTaskDescription() + "<br>" + memberTasks.get(0).getMemberName();
+        for ( int i = 1; i < memberTasks.size(); i++) {
+            if ( memberTasks.get(i).getTaskTitle().equals(memberTasks.get(i-1).getTaskTitle())) {
+                body += "<br>" + memberTasks.get(i).getMemberName();
             } else {
-                body += "<br> Member" + memberTasks.get(i).getMemberName();
+                body += "<br> ------------------------------------";
+                body += "<br> Title: " + memberTasks.get(i).getTaskTitle() + "<br> Description: " + memberTasks.get(i).getTaskDescription() + "<br>" + memberTasks.get(i).getMemberName();
             }
         }
 
-
-        body += "</ul>";
+        body += "</div>";
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.getBytes().length + "\r\n" +
                 "Content-Type: text/html\r\n" +

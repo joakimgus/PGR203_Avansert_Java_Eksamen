@@ -46,7 +46,7 @@ public class HttpServer {
                 "/api/statusOptions", new StatusOptionsController(statusDao),
                 "/api/taskOptions", new TaskOptionsController(taskDao),
                 "/api/memberOptions", new MemberOptionsController(memberDao),
-                "/api/addMemberTask", new addMembersWithTasksGetController(memberDao, taskDao, memberTaskDao)
+                "/api/addMemberTask", new addMembersWithTasksGetController(memberTaskDao)
         );
 
         serverSocket = new ServerSocket(port);
