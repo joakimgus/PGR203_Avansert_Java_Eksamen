@@ -86,7 +86,7 @@ class HttpServerTest {
     @Test
     void shouldPostNewMembers() throws IOException, SQLException {
         String requestBody = "full_name=Test&email_address=test@test.com";
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/newMember", "POST", requestBody);
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/members", "POST", requestBody);
         assertEquals(302, client.getStatusCode());
         assertThat(server.getMembers())
                 .filteredOn(member -> member.getName().equals("Test"))
@@ -108,7 +108,7 @@ class HttpServerTest {
     @Test
     void shouldPostNewTask() throws IOException, SQLException {
         String requestBody = "taskTitle=Oppgave+1&taskDescription=black";
-        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/api/newTask", "POST", requestBody);
+        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/api/tasks", "POST", requestBody);
         assertEquals(302, postClient.getStatusCode());
 
         HttpClient getClient = new HttpClient("localhost", server.getPort(), "/api/tasks");
