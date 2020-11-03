@@ -23,8 +23,8 @@ public class HttpServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
-    private final Map<String, HttpController> controllersGET;
-    private final Map<String, HttpController> controllersPOST;
+    private final Map<String, HttpController> getControllers;
+    private final Map<String, HttpController> postControllers;
 
     private MemberDao memberDao;
     private ServerSocket serverSocket;
@@ -33,20 +33,22 @@ public class HttpServer {
         memberDao = new MemberDao(dataSource);
         TaskDao taskDao = new TaskDao(dataSource);
         MemberTaskDao memberTaskDao = new MemberTaskDao(dataSource);
+        TaskMemberDao taskMemberDao = new TaskMemberDao(dataSource);
         StatusDao statusDao = new StatusDao(dataSource);
-        controllersPOST = Map.of(
+        postControllers = Map.of(
                 "/api/tasks", new TaskPostController(taskDao),
                 "/api/newStatus", new StatusPostController(statusDao),
                 "/api/addStatusToTask", new UpdateTaskController(taskDao),
                 "/api/addMemberTask", new addMembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
         );
 
-        controllersGET = Map.of(
+        getControllers = Map.of(
                 "/api/tasks", new TaskGetController(taskDao),
                 "/api/statusOptions", new StatusOptionsController(statusDao),
                 "/api/taskOptions", new TaskOptionsController(taskDao),
                 "/api/memberOptions", new MemberOptionsController(memberDao),
-                "/api/addMemberTask", new addMembersWithTasksGetController(memberTaskDao)
+                "/api/addMemberTask", new TasksWithMembersGetController(taskMemberDao),
+                "/api/addTaskMember", new MembersWithTasksGetController(memberTaskDao)
         );
 
         serverSocket = new ServerSocket(port);
@@ -94,7 +96,7 @@ public class HttpServer {
             } else if (requestPath.equals("/api/members")) {
                 handleGetMembers(clientSocket);
             } else {
-                HttpController controller = controllersGET.get(requestPath);
+                HttpController controller = getControllers.get(requestPath);
                 if (controller != null) {
                     controller.handle(request, clientSocket);
                 } else {
@@ -105,7 +107,7 @@ public class HttpServer {
     }
 
     private HttpController getController(String requestPath) {
-        return controllersPOST.get(requestPath);
+        return postControllers.get(requestPath);
     }
 
     private void handlePostMember(Socket clientSocket, HttpMessage request) throws SQLException, IOException {
