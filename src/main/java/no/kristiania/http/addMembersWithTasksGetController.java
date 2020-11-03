@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.sql.SQLException;
+import java.util.List;
 
 public class addMembersWithTasksGetController implements HttpController{
     private MemberDao memberDao;
@@ -22,13 +23,9 @@ public class addMembersWithTasksGetController implements HttpController{
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
-        for (Task task : taskDao.list()) {
 
-            body += "<li>TASK: " + task.getTitle() + "<br>" + task.getDescription() + "<br>";
-
-            for (Member member : memberDao.list()) {
-                body += "ASSIGNED MEMBERS: " + member.getName();
-            }
+        for(MemberTask memberTask : memberTaskDao.list()) {
+            body += "<li>" + "Title: " + memberTask.getTaskTitle() + "<br> Description: " + memberTask.getTaskDescription() + "<br> Member: " + memberTask.getMemberName() + "<br> ------------------------------------- <br>";
         }
 
         body += "</ul>";

@@ -36,7 +36,7 @@ public class HttpServer {
         StatusDao statusDao = new StatusDao(dataSource);
         controllersPOST = Map.of(
                 "/api/tasks", new TaskPostController(taskDao),
-                "/api/newStaus", new StatusPostController(statusDao),
+                "/api/newStatus", new StatusPostController(statusDao),
                 "/api/addStatusToTask", new UpdateTaskController(taskDao),
                 "/api/addMemberTask", new addMembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
         );
