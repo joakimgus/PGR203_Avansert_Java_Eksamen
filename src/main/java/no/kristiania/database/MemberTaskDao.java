@@ -40,7 +40,7 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
 
     public List<MemberTask> list() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement("Select m.name, t.title, t.description, s.status_name from status s, members m, tasks t, members_with_tasks mwt where mwt.member_id = m.id and t.id = mwt.task_id and t.status_id = s.id")) {
+            try (PreparedStatement statement = connection.prepareStatement("Select m.name, t.title, t.description, s.status_name from status s, members m, tasks t, members_with_tasks mwt where mwt.member_id = m.id and t.id = mwt.task_id and t.status_id = s.id order by title")) {
                 try (ResultSet rs = statement.executeQuery()) {
                     List<MemberTask> memberTasks = new ArrayList<>();
                     while (rs.next()) {

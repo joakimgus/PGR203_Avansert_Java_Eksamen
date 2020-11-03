@@ -24,9 +24,22 @@ public class addMembersWithTasksGetController implements HttpController{
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
 
+        /*
         for(MemberTask memberTask : memberTaskDao.list()) {
-            body += "<li>" + "Title: " + memberTask.getTaskTitle() + "<br> Description: " + memberTask.getTaskDescription() + "<br> Member: " + memberTask.getMemberName() + "<br> ------------------------------------- <br>";
+            body += "<li>" + "Title: " + memberTask.getTaskTitle() + "<br> Description: " + memberTask.getTaskDescription()
+            if ()
+                body+="<br> Member: " + memberTask.getMemberName() + "<br> ------------------------------------- <br>";
         }
+        */
+        List<MemberTask> memberTasks = memberTaskDao.list();
+        for ( int i = 0; i < memberTasks.size(); i++) {
+            if( i > 0 && memberTasks.get(i-1).getTaskTitle() != memberTasks.get(i).getTaskTitle() ) {
+                body += "<li>" + "Title: " + memberTasks.get(i).getTaskTitle() + "<br> Description: " + memberTasks.get(i).getTaskDescription() + "<br> Member: " + memberTasks.get(i).getMemberName();
+            } else {
+                body += "<br> Member" + memberTasks.get(i).getMemberName();
+            }
+        }
+
 
         body += "</ul>";
         String response = "HTTP/1.1 200 OK\r\n" +
