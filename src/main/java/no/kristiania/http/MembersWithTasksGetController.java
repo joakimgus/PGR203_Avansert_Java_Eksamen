@@ -22,7 +22,7 @@ public class MembersWithTasksGetController implements HttpController {
             List<MemberTask> memberTasks = memberTaskDao.list();
             body +=  "<li>Member: " + memberTasks.get(0).getMemberName() +
                     "<br>Email: " + memberTasks.get(0).getMemberEmail() +
-                    "<br>Assigned task:<br>" + memberTasks.get(0).getTaskTitle() + " | " + memberTasks.get(0).getStatusName() + "<br></li>";
+                    "<br>Assigned tasks:<br>" + memberTasks.get(0).getTaskTitle() + " | " + memberTasks.get(0).getStatusName() + "<br></li>";
 
             for ( int i = 1; i < memberTasks.size(); i++) {
                 if ( memberTasks.get(i).getMemberName().equals(memberTasks.get(i-1).getMemberName())) {

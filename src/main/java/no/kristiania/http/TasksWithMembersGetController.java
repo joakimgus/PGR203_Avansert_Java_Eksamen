@@ -32,7 +32,7 @@ public class TasksWithMembersGetController implements HttpController{
                 body += "<li>Title: " + taskMembers.get(i).getTaskTitle() +
                         "<br>Status: " + taskMembers.get(i).getStatusName() +
                         "<br>Description: " + taskMembers.get(i).getTaskDescription() +
-                        "<br>Member:<br>" + taskMembers.get(i).getMemberName() + "</li>";
+                        "<br>Members:<br>" + taskMembers.get(i).getMemberName() + "</li>";
             }
         }
 
