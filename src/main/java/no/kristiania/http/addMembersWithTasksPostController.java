@@ -10,9 +10,9 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class addMembersWithTasksPostController implements HttpController{
-    private MemberDao memberDao;
-    private TaskDao taskDao;
-    private MemberTaskDao memberTaskDao;
+    private final MemberDao memberDao;
+    private final TaskDao taskDao;
+    private final MemberTaskDao memberTaskDao;
 
     public addMembersWithTasksPostController(MemberDao memberDao, TaskDao taskDao, MemberTaskDao memberTaskDao) {
         this.memberDao = memberDao;

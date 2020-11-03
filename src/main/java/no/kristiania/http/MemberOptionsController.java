@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class MemberOptionsController implements HttpController {
-    private MemberDao memberDao;
+    private final MemberDao memberDao;
 
     public MemberOptionsController(MemberDao memberDao) {
         this.memberDao = memberDao;

@@ -26,8 +26,8 @@ public class HttpServer {
     private final Map<String, HttpController> controllersGET;
     private final Map<String, HttpController> controllersPOST;
 
-    private MemberDao memberDao;
-    private ServerSocket serverSocket;
+    private final MemberDao memberDao;
+    private final ServerSocket serverSocket;
 
     public HttpServer(int port, DataSource dataSource) throws IOException {
         memberDao = new MemberDao(dataSource);
