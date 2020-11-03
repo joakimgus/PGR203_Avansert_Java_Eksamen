@@ -175,7 +175,7 @@ public class HttpServer {
     private void handleGetMembers(Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
         for (Member member : memberDao.list()) {
-                body += "<li>" + "Name: " + member.getName() + "<br>Email: " + member.getEmail() + "<br>Task ID: 404 Not found" + "<br>______________________________<br>" + "</li>";
+                body += "<li>" + "Name: " + member.getName() + "<br>Email: " + member.getEmail() + "<br>______________________________<br>" + "</li>";
         }
 
         body += "</ul>";

@@ -1,11 +1,9 @@
 package no.kristiania.database;
 
 public class MemberTask {
-    private Integer memberId;
-    private Integer taskId;
-    private String memberName;
-    private String taskTitle;
-    private String taskDescription;
+    private Integer memberId, taskId;
+    private String memberName, taskTitle, taskDescription, statusName;
+
 
     public Integer getMemberId() {
         return memberId;
@@ -45,5 +43,13 @@ public class MemberTask {
 
     public void setTaskDescription(String taskDescription) {
         this.taskDescription = taskDescription;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
+    public String getStatusName() {
+        return statusName;
     }
 }

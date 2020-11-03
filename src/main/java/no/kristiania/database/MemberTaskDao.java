@@ -35,6 +35,7 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
         memberTask.setMemberName((String) rs.getObject("name"));
         memberTask.setTaskTitle((String) rs.getObject("title"));
         memberTask.setTaskDescription((String) rs.getObject("description"));
+        memberTask.setStatusName((String) rs.getObject("status_name"));
         return memberTask;
     }
 

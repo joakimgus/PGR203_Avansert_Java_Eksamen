@@ -7,6 +7,7 @@ public class Task {
     private Integer id;
     private String description;
     private Integer statusId;
+    private String statusName;
 
     // SET & GET TASK
     public String getTitle() {
