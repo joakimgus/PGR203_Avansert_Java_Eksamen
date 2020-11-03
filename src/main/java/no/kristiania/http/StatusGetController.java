@@ -20,7 +20,8 @@ public class StatusGetController implements HttpController{
         public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
             String body = "<ul>";
             for (Status status : statusDao.list()) {
-                body += "<li>" + "Status ID: " + status.getId() + "<br>Name: " + URLDecoder.decode(status.getName(), "utf-8") + "</li>";
+                body += "<li>" + "Status ID: " + status.getId() +
+                        "<br>Name: " + URLDecoder.decode(status.getName(), "utf-8") + "</li>";
             }
 
             body += "</ul>";

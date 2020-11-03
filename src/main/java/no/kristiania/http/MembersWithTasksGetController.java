@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MembersWithTasksGetController implements HttpController {
 
-        private MemberTaskDao memberTaskDao;
+        private final MemberTaskDao memberTaskDao;
 
         public MembersWithTasksGetController(MemberTaskDao memberTaskDao) {
             this.memberTaskDao = memberTaskDao;
@@ -20,13 +20,21 @@ public class MembersWithTasksGetController implements HttpController {
         public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
             String body = "<div>";
             List<MemberTask> memberTasks = memberTaskDao.list();
-            body +=  memberTasks.get(0).getMemberName() + "<br> Email: " + memberTasks.get(0).getMemberEmail() + "<br> Task Title: " + memberTasks.get(0).getTaskTitle() + "<br> Status: " + memberTasks.get(0).getStatusName();
+            body +=  "Member: " + memberTasks.get(0).getMemberName() +
+                    "<br>Email: " + memberTasks.get(0).getMemberEmail() +
+                    "<br>Assigned task: " + memberTasks.get(0).getTaskTitle() +
+                    "<br>Status: " + memberTasks.get(0).getStatusName();
+
             for ( int i = 1; i < memberTasks.size(); i++) {
                 if ( memberTasks.get(i).getMemberName().equals(memberTasks.get(i-1).getMemberName())) {
-                    body += "<br> Task Title: " + memberTasks.get(i).getTaskTitle() + "<br> Status: " + memberTasks.get(0).getStatusName();
+                    body += "<br>Assigned task: " + memberTasks.get(i).getTaskTitle() +
+                            "<br>Status: " + memberTasks.get(0).getStatusName();
                 } else {
-                    body += "<br> ------------------------------------";
-                    body += "<br>" + memberTasks.get(i).getMemberName() + "<br> Email: " + memberTasks.get(i).getMemberEmail() + "<br> Task Title: " + memberTasks.get(i).getTaskTitle() + "<br> Status: " + memberTasks.get(0).getStatusName();
+                    body += "<br>_________________________________";
+                    body += "<br>" + memberTasks.get(i).getMemberName() +
+                            "<br>Email: " + memberTasks.get(i).getMemberEmail() +
+                            "<br>Assigned task: " + memberTasks.get(i).getTaskTitle() +
+                            "<br>Status: " + memberTasks.get(0).getStatusName();
                 }
             }
 
