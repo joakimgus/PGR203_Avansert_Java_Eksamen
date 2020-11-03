@@ -64,7 +64,6 @@ public class TaskDao extends AbstractDao<Task> {
                     while (rs.next()) {
                         tasks.add(mapRow(rs));
                     }
-                    tasks.forEach(System.out::print);
                     return tasks;
                 }
             }

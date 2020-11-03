@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class StatusOptionsController implements HttpController{
 
-    private StatusDao statusDao;
+    private final StatusDao statusDao;
 
     public StatusOptionsController(StatusDao statusDao) {
         this.statusDao = statusDao;

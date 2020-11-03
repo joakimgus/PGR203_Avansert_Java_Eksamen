@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class addMembersWithTasksPostController implements HttpController{
+public class MembersWithTasksPostController implements HttpController{
     private final MemberDao memberDao;
     private final TaskDao taskDao;
     private final MemberTaskDao memberTaskDao;
 
-    public addMembersWithTasksPostController(MemberDao memberDao, TaskDao taskDao, MemberTaskDao memberTaskDao) {
+    public MembersWithTasksPostController(MemberDao memberDao, TaskDao taskDao, MemberTaskDao memberTaskDao) {
         this.memberDao = memberDao;
         this.taskDao = taskDao;
         this.memberTaskDao = memberTaskDao;

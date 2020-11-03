@@ -39,7 +39,7 @@ public class HttpServer {
                 "/api/tasks", new TaskPostController(taskDao),
                 "/api/newStatus", new StatusPostController(statusDao),
                 "/api/addStatusToTask", new UpdateTaskController(taskDao),
-                "/api/addMemberTask", new addMembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
+                "/api/addMemberTask", new MembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
         );
 
         getControllers = Map.of(
@@ -48,7 +48,8 @@ public class HttpServer {
                 "/api/taskOptions", new TaskOptionsController(taskDao),
                 "/api/memberOptions", new MemberOptionsController(memberDao),
                 "/api/addMemberTask", new TasksWithMembersGetController(taskMemberDao),
-                "/api/addTaskMember", new MembersWithTasksGetController(memberTaskDao)
+                "/api/addTaskMember", new MembersWithTasksGetController(memberTaskDao),
+                "/api/status", new StatusGetController((statusDao))
         );
 
         serverSocket = new ServerSocket(port);
