@@ -17,19 +17,26 @@ public class TasksWithMembersGetController implements HttpController{
 
     @Override
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
-        String body = "<div>";
+        String body = "<ul>";
         List<MemberTask> taskMembers = memberTaskDao.list();
-        body += "Title: " + taskMembers.get(0).getTaskTitle() + "<br> Status: " + taskMembers.get(0).getStatusName() +"<br> Description: " + taskMembers.get(0).getTaskDescription() + "<br>" + taskMembers.get(0).getMemberName();
+        body += "<li>Title: " + taskMembers.get(0).getTaskTitle() +
+                "<br>Status: " + taskMembers.get(0).getStatusName() +
+                "<br>Description: " + taskMembers.get(0).getTaskDescription() +
+                "<br>Members:<br>" + taskMembers.get(0).getMemberName() + "<br></li>";
+
         for ( int i = 1; i < taskMembers.size(); i++) {
             if ( taskMembers.get(i).getTaskTitle().equals(taskMembers.get(i-1).getTaskTitle())) {
-                body += "<br>" + taskMembers.get(i).getMemberName();
+                body += taskMembers.get(i).getMemberName() + "</li><br>";
             } else {
-                body += "<br> ------------------------------------";
-                body += "<br> Title: " + taskMembers.get(i).getTaskTitle() + "<br> Status: " + taskMembers.get(i).getStatusName() + "<br> Description: " + taskMembers.get(i).getTaskDescription() + "<br>" + taskMembers.get(i).getMemberName();
+                body += "____________________________________<br>";
+                body += "<li>Title: " + taskMembers.get(i).getTaskTitle() +
+                        "<br>Status: " + taskMembers.get(i).getStatusName() +
+                        "<br>Description: " + taskMembers.get(i).getTaskDescription() +
+                        "<br>Member: " + taskMembers.get(i).getMemberName() + "</li>";
             }
         }
 
-        body += "</div>";
+        body += "</ul>";
         String response = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + body.getBytes().length + "\r\n" +
                 "Content-Type: text/html\r\n" +
