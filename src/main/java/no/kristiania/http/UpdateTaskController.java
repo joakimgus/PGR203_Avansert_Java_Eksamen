@@ -24,8 +24,8 @@ public class UpdateTaskController implements HttpController {
     public HttpMessage handle(HttpMessage request) throws SQLException {
         QueryString requestParameter = new QueryString(request.getBody());
 
-        Integer taskId = Integer.valueOf(requestParameter.getParameter("taskId"));
-        Integer statusId = Integer.valueOf(requestParameter.getParameter("statusId"));
+        Integer taskId = Integer.valueOf(requestParameter.getParameter("title"));
+        Integer statusId = Integer.valueOf(requestParameter.getParameter("statusName"));
         Task task = taskDao.retrieve(taskId);
         task.setStatusId(statusId);
 

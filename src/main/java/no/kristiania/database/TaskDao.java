@@ -3,6 +3,7 @@ package no.kristiania.database;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TaskDao extends AbstractDao<Task> {
@@ -63,9 +64,11 @@ public class TaskDao extends AbstractDao<Task> {
                     while (rs.next()) {
                         tasks.add(mapRow(rs));
                     }
+                    tasks.forEach(System.out::print);
                     return tasks;
                 }
             }
         }
     }
 }
+
