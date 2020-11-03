@@ -1,4 +1,3 @@
-/*
 package no.kristiania.http;
 
 import no.kristiania.database.MemberDao;
@@ -40,4 +39,3 @@ public class addMembersWithTasksPostController implements HttpController{
         clientSocket.getOutputStream().write(response.getBytes());
     }
 }
-*/

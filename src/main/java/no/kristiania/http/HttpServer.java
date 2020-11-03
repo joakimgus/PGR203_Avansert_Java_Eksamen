@@ -32,21 +32,21 @@ public class HttpServer {
     public HttpServer(int port, DataSource dataSource) throws IOException {
         memberDao = new MemberDao(dataSource);
         TaskDao taskDao = new TaskDao(dataSource);
-        /*MemberTaskDao memberTaskDao = new MemberTaskDao(dataSource);*/
+        MemberTaskDao memberTaskDao = new MemberTaskDao(dataSource);
         StatusDao statusDao = new StatusDao(dataSource);
         controllersPOST = Map.of(
                 "/api/tasks", new TaskPostController(taskDao),
                 "/api/newStatus", new StatusPostController(statusDao),
-                "/api/changeStatus", new UpdateTaskController(taskDao)
-          /*      "/api/POSTmembertask", new MemberTaskController(memberDao, taskDao, memberTaskDao),
-                "/api/something", new MemberTaskController(memberDao, taskDao, memberTaskDao) */
+                "/api/addStatusToStatus", new UpdateTaskController(taskDao),
+                "/api/addMemberTask", new addMembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
         );
 
         controllersGET = Map.of(
                 "/api/tasks", new TaskGetController(taskDao),
                 "/api/statusOptions", new StatusOptionsController(statusDao),
                 "/api/taskOptions", new TaskOptionsController(taskDao),
-                "/api/memberOptions", new MemberOptionsController(memberDao)
+                "/api/memberOptions", new MemberOptionsController(memberDao),
+                "/api/addMemberTask", new addMembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
         );
 
         serverSocket = new ServerSocket(port);
