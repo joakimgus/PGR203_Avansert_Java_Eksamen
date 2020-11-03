@@ -15,20 +15,15 @@ public class MemberTaskDao extends AbstractDao<MemberTask> {
     public void insert(MemberTask memberTask) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "insert into members_with_tasks (member_id,task_id) values (?,?)",
-                    Statement.RETURN_GENERATED_KEYS
+                    "insert into members_with_tasks (member_id,task_id) values (?,?)"
             )) {
                 statement.setInt(1, memberTask.getMemberId());
                 statement.setInt(2, memberTask.getTaskId());
                 statement.executeUpdate();
-
-                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                    generatedKeys.next();
-                 //   memberTask.setMemberTaskId(generatedKeys.getInt("memberTaskId"));
                 }
             }
         }
-    }
+
 
     public MemberTask retrieve(Integer id) throws SQLException {
         return retrieve(id, "SELECT * FROM members_with_tasks WHERE memberTaskId = ?");
