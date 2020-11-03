@@ -22,18 +22,16 @@ public class MembersWithTasksGetController implements HttpController {
             List<MemberTask> memberTasks = memberTaskDao.list();
             body +=  "<li>Member: " + memberTasks.get(0).getMemberName() +
                     "<br>Email: " + memberTasks.get(0).getMemberEmail() +
-                    "<br>Status: " + memberTasks.get(0).getStatusName() +
-                    "<br>Assigned task:<br>" + memberTasks.get(0).getTaskTitle() + "<br></li>";
+                    "<br>Assigned task:<br>" + memberTasks.get(0).getTaskTitle() + " | " + memberTasks.get(0).getStatusName() + "<br></li>";
 
             for ( int i = 1; i < memberTasks.size(); i++) {
                 if ( memberTasks.get(i).getMemberName().equals(memberTasks.get(i-1).getMemberName())) {
-                    body += memberTasks.get(i).getTaskTitle() + "</li><br>";
+                    body += memberTasks.get(i).getTaskTitle() + " | " + memberTasks.get(i).getStatusName() + "</li><br>";
                 } else {
                     body += "_________________________________<br>";
                     body += "<li>Member: " + memberTasks.get(i).getMemberName() +
                             "<br>Email: " + memberTasks.get(i).getMemberEmail() +
-                            "<br>Status: " + memberTasks.get(i).getStatusName() +
-                            "<br>Assigned tasks:<br> " + memberTasks.get(i).getTaskTitle() + "</li>";
+                            "<br>Assigned tasks:<br> " + memberTasks.get(i).getTaskTitle() + " | " + memberTasks.get(i).getStatusName() + "</li>";
                 }
             }
 

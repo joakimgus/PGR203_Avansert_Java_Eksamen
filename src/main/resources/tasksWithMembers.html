@@ -8,8 +8,10 @@
 <body>
 <h3>Tasks With Members</h3>
 <p>A view of all tasks with members.</p>
-
+<br>
 <div id="tasksWithMembers"></div>
+<br>
+<a href="/index.html">Return to front page</a>
 </body>
 <script>
     fetch("/api/addMemberTask").then(response => response.text()).then(html => {
