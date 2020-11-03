@@ -1,4 +1,3 @@
-/*
 package no.kristiania.http;
 
 import no.kristiania.database.*;
@@ -25,14 +24,11 @@ public class addMembersWithTasksGetController implements HttpController{
         String body = "<ul>";
         for (Task task : taskDao.list()) {
 
-            String taskId = "" + task.getId();
-            String memberName = "";
+            body += "<li>TASK: " + task.getTitle() + "<br>" + task.getDescription() + "<br>";
 
             for (Member member : memberDao.list()) {
-                memberName = memberName + member.getName();
+                body += "ASSIGNED MEMBERS: " + member.getName();
             }
-
-            String status = task
         }
 
         body += "</ul>";
@@ -46,4 +42,3 @@ public class addMembersWithTasksGetController implements HttpController{
         clientSocket.getOutputStream().write(response.getBytes());
     }
 }
-*/

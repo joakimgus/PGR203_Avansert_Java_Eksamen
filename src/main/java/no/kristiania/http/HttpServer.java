@@ -36,8 +36,8 @@ public class HttpServer {
         StatusDao statusDao = new StatusDao(dataSource);
         controllersPOST = Map.of(
                 "/api/tasks", new TaskPostController(taskDao),
-                "/api/newStatus", new StatusPostController(statusDao),
-                "/api/addStatusToStatus", new UpdateTaskController(taskDao),
+                "/api/newStaus", new StatusPostController(statusDao),
+                "/api/addStatusToTask", new UpdateTaskController(taskDao),
                 "/api/addMemberTask", new addMembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
         );
 
@@ -46,7 +46,7 @@ public class HttpServer {
                 "/api/statusOptions", new StatusOptionsController(statusDao),
                 "/api/taskOptions", new TaskOptionsController(taskDao),
                 "/api/memberOptions", new MemberOptionsController(memberDao),
-                "/api/addMemberTask", new addMembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
+                "/api/addMemberTask", new addMembersWithTasksGetController(memberDao, taskDao, memberTaskDao)
         );
 
         serverSocket = new ServerSocket(port);
