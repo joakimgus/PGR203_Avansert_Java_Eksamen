@@ -10,19 +10,20 @@
 **Funksjonaliteten skal inkludere:**
 - [x] Opprett prosjektmedlem med navn og email -> Liste prosjektmedlemmer.
 - [x] Opprett ny prosjektoppgave med navn og status Tildel oppgave til prosjektmedlemmer.
-- [x] Liste opp prosjektoppgaver, inkludert status og tildelte prosjektmedlemmer Endre oppgavestatus.
+- [x] Liste opp prosjektoppgaver, inkludert status og tildelte prosjektmedlemmer.
+- [x] Endre oppgavestatus.
 - [ ] Filtrere oppgaver per prosjektmedlem og status.
-- [ ] Ekstra funksjonalitet gir bonuspoeng. Dette kan for eksempel være redigering av eksisterende prosjektmedlemmer og oppgaver, organisering av oppgaver og prosjektmedlemmer i prosjekt, "logge inn" som prosjektmedlem med cookies, endre statuskategorier.
-- [ ] Prosjektet må følge god programmeringsskikk. Dette er viktige krav og feil på et enkelt punkt kan gi en hel karakter i trekk.
-- [x] Koden skal følge standard Java-konvensjoner med hensyn til store og små bokstaver og indentering Koden skal utvikles på Git, med Maven og kjøre tester på Github Actions.
-- [x] Koden skal ha god testdekning.
+
+**Prosjektet må følge god programmeringsskikk. Dette er viktige krav og feil på et enkelt punkt kan gi en hel karakter i trekk.**
+- [ ] Koden skal følge standard Java-konvensjoner med hensyn til store og små bokstaver og indentering Koden skal utvikles på Git, med Maven og kjøre tester på Github Actions.
+- [ ] Koden skal ha god testdekning.
 - [x] Det skal ikke forekomme SQL Injection feil.
 - [x] Databasepassord skal være konfigurert i en fil som ikke sjekkes inn i git.
 - [ ] README-fil må dokumentere hvordan man bygger, konfigurerer og kjører løsningen.
 - [ ] README-fil må dokumentere designet på løsningen.
 - [ ] README-fil må beskrive erfaringene med arbeidet og løsningen.
-- [ ] Maven skal bygge en executable jar som inneholder HTML-koden og som referer til pgr203.properties i current working directory.
-- [ ] God abstraksjon for eksempel DAO eller Controller-klasser gir bonuspoeng. Konsistent bruk av begreper og kode vektlegges. Brukervennlighet er ikke et vurderingskriterie for karakteren.
+- [x] Maven skal bygge en executable jar som inneholder HTML-koden og som referer til pgr203.properties i current working directory.
+- [x] God abstraksjon for eksempel DAO eller Controller-klasser gir bonuspoeng. Konsistent bruk av begreper og kode vektlegges. Brukervennlighet er ikke et vurderingskriterie for karakteren.
 
 **Vedlegg: Sjekkliste for innlevering**
 - [ ] Dere har lastet opp en ZIP-fil med navn basert på navnet på deres Github repository
@@ -37,9 +38,9 @@
 - [ ] Dere har gitt minst 2 positive og 2 korrektive GitHub issues til en annen gruppe og inkluderer link til disse fra README.md
 
 **Koden**
-- [x] mvn package bygger en executable jar-fil
-- [x] Koden inneholder et godt sett med tester
-- [x] java -jar target/...jar (etter mvn package ) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
+- [ ] mvn package bygger en executable jar-fil
+- [ ] Koden inneholder et godt sett med tester
+- [ ] java -jar target/...jar (etter mvn package ) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
 - [x] Programmet leser dataSource.url , dataSource.username og dataSource.password fra pgr203.properties for å connecte til databasen
 - [x] Programmet bruker Flywaydb for å sette opp databaseskjema
 - [x] Server skriver nyttige loggmeldinger, inkludert informasjon om hvilken URL den kjører på ved oppstart
@@ -53,16 +54,13 @@
 - [x] Programmet lar bruker endre status på en oppgave
 
 **Vedlegg: Mulighet for ekstrapoeng**
-- [ ] Håndtering av request target "/"
-- [ ] Avansert datamodell (mer enn 3 tabeller)
-- [ ] Avansert funksjonalitet (redigering av prosjektmedlemmer, statuskategorier, prosjekter)
-- [ ] Implementasjon av cookies for å konstruere sesjoner: https://tools.ietf.org/html/rfc6265#section-3
+- [x] Håndtering av request target "/"
+- [x] Avansert datamodell (mer enn 3 tabeller)
 - [ ] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
 - [ ] Rammeverk rundt Http-håndtering (en god HttpMessage class med HttpRequest og HttpResponse subtyper) som gjenspeiler RFC7230
-- [ ] God bruk av DAO-pattern
-- [ ] God bruk av Controller-pattern
-- [ ] Korrekt håndtering av norske tegn i HTTP
+- [x] God bruk av DAO-pattern
+- [x] God bruk av Controller-pattern
+- [x] Korrekt håndtering av norske tegn i HTTP
 - [ ] Link til video med god demonstrasjon av ping-pong programmering
 - [ ] Automatisk rapportering av testdekning i Github Actions
-- [ ] Implementasjon av Chunked Transfer Encoding: https://tools.ietf.org/html/rfc7230#section-4.1
-- [ ] Annet.
+- [ ] Annet. ???- [x] Lar samme oppgave tildeles flere medlemmer, og liste oppgave per member.
