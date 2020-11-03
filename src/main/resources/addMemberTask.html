@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Assign task to member</title>
+    <title>MemberTaskHandler</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h2>Assign task to member</h2>
+<h3>Add members to tasks</h3>
+<p>On this page you will be able to assign tasks to members/members to tasks.</p>
 
-<form method="post" action="/api/updateMember">
+<form method="post" action="/api/addMemberTask">
     <p>Member: <select name="memberId" id="memberId" ></select></p>
     <p>Task: <select name="taskId" id="taskId" ></select></p>
     <button>Submit</button>

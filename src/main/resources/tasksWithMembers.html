@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Tasks With Members</h3>
+<p>A view of all tasks with members.</p>
+
+<div id="tasksWithMembers"></div>
+</body>
+<script>
+    fetch("/api/addMemberTask").then(response => response.text()).then(html => {
+        document.getElementById("tasksWithMembers").innerHTML = html;
+    });
+</script>
+</html>
