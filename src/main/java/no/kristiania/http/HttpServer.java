@@ -34,6 +34,7 @@ public class HttpServer {
         TaskDao taskDao = new TaskDao(dataSource);
         MemberTaskDao memberTaskDao = new MemberTaskDao(dataSource);
         TaskMemberDao taskMemberDao = new TaskMemberDao(dataSource);
+        TaskStatusDao taskStatusDao = new TaskStatusDao(dataSource);
         StatusDao statusDao = new StatusDao(dataSource);
         postControllers = Map.of(
                 "/api/tasks", new TaskPostController(taskDao),
@@ -47,8 +48,9 @@ public class HttpServer {
                 "/api/statusOptions", new StatusOptionsController(statusDao),
                 "/api/taskOptions", new TaskOptionsController(taskDao),
                 "/api/memberOptions", new MemberOptionsController(memberDao),
-                "/api/addMemberTask", new TasksWithMembersGetController(taskMemberDao),
-                "/api/addTaskMember", new MembersWithTasksGetController(memberTaskDao),
+                "/api/addTaskMember", new TasksWithMembersGetController(taskMemberDao),
+                "/api/addMemberTask", new MembersWithTasksGetController(memberTaskDao),
+                "/api/addStatusTask", new StatusesWithTasksGetController(taskStatusDao),
                 "/api/status", new StatusGetController((statusDao))
         );
 
