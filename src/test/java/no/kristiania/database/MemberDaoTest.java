@@ -2,6 +2,7 @@ package no.kristiania.database;
 
 import no.kristiania.http.HttpMessage;
 import no.kristiania.http.MemberOptionsController;
+import no.kristiania.http.MembersWithTasksPostController;
 import org.flywaydb.core.Flyway;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,27 +61,6 @@ class MemberDaoTest {
         assertThat(controller.getBody())
                 .contains("<option value=" + member.getId() + ">" + member.getName() + "</option>");
     }
-/*
-    @Test
-    void shouldUpdateExistingMemberWithNewTask() throws IOException, SQLException {
-        UpdateMemberController controller = new UpdateMemberController(memberDao);
-
-        Member member = exampleMember();
-        memberDao.insert(member);
-
-        Task task = TaskDaoTest.exampleTask();
-        taskDao.insert(task);
-
-        String body = "memberId=" + member.getId() + "&taskId=" + task.getId();
-
-        HttpMessage response = controller.handle(new HttpMessage(body));
-        assertThat(memberDao.retrieve(member.getId()).getTaskId())
-                .isEqualTo(task.getId());
-        assertThat(response.getStartLine())
-                .isEqualTo("HTTP/1.1 302 Redirect");
-        assertThat(response.getHeaders().get("Location"))
-                .isEqualTo("http://localhost:8080/members.html");
-    } */
 
     public static Member exampleMember() {
         Member member = new Member();
