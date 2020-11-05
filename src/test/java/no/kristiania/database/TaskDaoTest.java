@@ -69,12 +69,12 @@ public class TaskDaoTest {
 
 
     private static String exampleDescription() {
-        String[] desc = {"test", "test2"};
+        String[] desc = {"task desc 1", "task desc2"};
         return desc[random.nextInt(desc.length)];
     }
 
     private static String exampleTaskTitle() {
-        String[] options = {"Oppgave 1", "Oppgave 2", "Oppgave 3"};
+        String[] options = {"Task title 1", "Task title 2", "Task title 3"};
         return options[random.nextInt(options.length)];
     }
 }
