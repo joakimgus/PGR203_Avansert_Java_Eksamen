@@ -84,6 +84,12 @@ class HttpServerTest {
     }
 
     @Test
+    void shouldRedirectToIndex() throws IOException {
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/");
+        assertEquals(302, client.getStatusCode());
+    }
+
+    @Test
     void shouldPostNewMembers() throws IOException, SQLException {
         String requestBody = "full_name=Test&email_address=test@test.com";
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/members", "POST", requestBody);
@@ -106,7 +112,7 @@ class HttpServerTest {
     }
 
     @Test
-    void shouldPostNewTask() throws IOException, SQLException {
+    void shouldPostNewTask() throws IOException {
         String requestBody = "taskTitle=Oppgave+1&taskDescription=black";
         HttpClient postClient = new HttpClient("localhost", server.getPort(), "/api/tasks", "POST", requestBody);
         assertEquals(302, postClient.getStatusCode());
