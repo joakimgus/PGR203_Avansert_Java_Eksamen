@@ -7,6 +7,10 @@
 ![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/javaClassDiagram.png?raw=true)
 
 ***
+### Database UML Diagram :
+![DatabaseDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/databaseDiagram.png?raw=true)
+
+***
 **SJEKKLISTE**
 - [ ] Oppgaven skal leveres i Wiseflow som en ZIP-fil og link til Github Classroom.
 - [ ] Innleveringen kan deles med en annen gruppe for gjensidig tilbakemelding. Tilbakemelding skal gis i form av Github issues.
