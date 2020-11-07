@@ -21,10 +21,10 @@
 - [x] Opprett ny prosjektoppgave med navn og status Tildel oppgave til prosjektmedlemmer.
 - [x] Liste opp prosjektoppgaver, inkludert status og tildelte prosjektmedlemmer.
 - [x] Endre oppgavestatus.
-- [ ] Filtrere oppgaver per prosjektmedlem og status.
+- [x] Filtrere oppgaver per prosjektmedlem og status.
 
 **Prosjektet må følge god programmeringsskikk. Dette er viktige krav og feil på et enkelt punkt kan gi en hel karakter i trekk.**
-- [ ] Koden skal følge standard Java-konvensjoner med hensyn til store og små bokstaver og indentering Koden skal utvikles på Git, med Maven og kjøre tester på Github Actions.
+- [x] Koden skal følge standard Java-konvensjoner med hensyn til store og små bokstaver og indentering Koden skal utvikles på Git, med Maven og kjøre tester på Github Actions.
 - [ ] Koden skal ha god testdekning.
 - [x] Det skal ikke forekomme SQL Injection feil.
 - [x] Databasepassord skal være konfigurert i en fil som ikke sjekkes inn i git.
@@ -65,7 +65,7 @@
 **Vedlegg: Mulighet for ekstrapoeng**
 - [x] Håndtering av request target "/"
 - [x] Avansert datamodell (mer enn 3 tabeller)
-- [ ] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
+- [x] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
 - [ ] Rammeverk rundt Http-håndtering (en god HttpMessage class med HttpRequest og HttpResponse subtyper) som gjenspeiler RFC7230
 - [x] God bruk av DAO-pattern
 - [x] God bruk av Controller-pattern
