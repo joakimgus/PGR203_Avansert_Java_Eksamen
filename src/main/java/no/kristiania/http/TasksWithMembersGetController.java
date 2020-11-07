@@ -1,10 +1,10 @@
 package no.kristiania.http;
 
-import no.kristiania.database.*;
+import no.kristiania.database.MemberTask;
+import no.kristiania.database.TaskMemberDao;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.List;
 

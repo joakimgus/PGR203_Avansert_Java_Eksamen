@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class StatusesWithTasksGetController implements HttpController{
-    private TaskStatusDao taskStatusDao;
+    private final TaskStatusDao taskStatusDao;
 
     public StatusesWithTasksGetController(TaskStatusDao taskStatusDao) {
         this.taskStatusDao = taskStatusDao;

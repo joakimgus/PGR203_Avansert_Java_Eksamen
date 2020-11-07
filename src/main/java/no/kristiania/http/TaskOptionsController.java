@@ -4,7 +4,6 @@ import no.kristiania.database.Task;
 import no.kristiania.database.TaskDao;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;

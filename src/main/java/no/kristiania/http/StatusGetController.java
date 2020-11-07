@@ -2,11 +2,11 @@ package no.kristiania.http;
 
 import no.kristiania.database.Status;
 import no.kristiania.database.StatusDao;
-import no.kristiania.database.Task;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class StatusGetController implements HttpController{
@@ -21,7 +21,7 @@ public class StatusGetController implements HttpController{
             String body = "<ul>";
             for (Status status : statusDao.list()) {
                 body += "<li>" + "Status ID: " + status.getId() +
-                        "<br>Name: " + URLDecoder.decode(status.getName(), "utf-8") + "</li>";
+                        "<br>Name: " + URLDecoder.decode(status.getName(), StandardCharsets.UTF_8) + "</li>";
             }
 
             body += "</ul>";

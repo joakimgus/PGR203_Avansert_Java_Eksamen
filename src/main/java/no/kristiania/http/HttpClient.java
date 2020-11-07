@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class HttpClient {
 
-    private final HttpMessage httpMessage;
     private final int statusCode;
     private final Map<String, String> responseHeaders;
     String responseBody;
@@ -35,7 +34,7 @@ public class HttpClient {
             socket.getOutputStream().write(requestBody.getBytes());
         }
 
-        httpMessage = new HttpMessage(socket);
+        HttpMessage httpMessage = new HttpMessage(socket);
 
         String responseLine = httpMessage.getStartLine();
         String[] responseLineParts = responseLine.split(" ");

@@ -41,7 +41,7 @@ public class HttpServer {
                 "/api/tasks", new TaskPostController(taskDao),
                 "/api/newStatus", new StatusPostController(statusDao),
                 "/api/addStatusToTask", new UpdateTaskController(taskDao),
-                "/api/addMemberTask", new MembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
+                "/api/addMemberTask", new MembersWithTasksPostController(memberTaskDao)
         );
 
         getControllers = Map.of(
@@ -93,19 +93,24 @@ public class HttpServer {
                 getController(requestPath).handle(request, clientSocket);
             }
         } else {
-            if (requestPath.equals("/")) {
-                handleSlashRequest(clientSocket);
-            } else if (requestPath.equals("/echo")) {
-                handleEchoRequest(clientSocket, requestTarget, questionPos);
-            } else if (requestPath.equals("/api/members")) {
-                handleGetMembers(clientSocket);
-            } else {
-                HttpController controller = getControllers.get(requestPath);
-                if (controller != null) {
-                    controller.handle(request, clientSocket);
-                } else {
-                    handleFileRequest(clientSocket, requestPath);
-                }
+            switch (requestPath) {
+                case "/":
+                    handleSlashRequest(clientSocket);
+                    break;
+                case "/echo":
+                    handleEchoRequest(clientSocket, requestTarget, questionPos);
+                    break;
+                case "/api/members":
+                    handleGetMembers(clientSocket);
+                    break;
+                default:
+                    HttpController controller = getControllers.get(requestPath);
+                    if (controller != null) {
+                        controller.handle(request, clientSocket);
+                    } else {
+                        handleFileRequest(clientSocket, requestPath);
+                    }
+                    break;
             }
         }
     }
@@ -229,7 +234,7 @@ public class HttpServer {
         logger.info("Using database {}", dataSource.getUrl());
         Flyway.configure().dataSource(dataSource).load().migrate();
 
-        HttpServer server = new HttpServer(8080, dataSource);
+        new HttpServer(8080, dataSource);
         logger.info("Started on http://localhost:{}/index.html", 8080);
     }
 
