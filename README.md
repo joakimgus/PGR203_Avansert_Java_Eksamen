@@ -2,7 +2,7 @@
 
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-tinaeile/workflows/Java%20CI%20with%20Maven/badge.svg)
 
-![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/docs/javaClassDiagram.png)
+![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/javaClassDiagram.png?raw=true)
 
 **SJEKKLISTE**
 - [ ] Oppgaven skal leveres i Wiseflow som en ZIP-fil og link til Github Classroom.
