@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class TasksWithMembersGetController implements HttpController{
-    private TaskMemberDao memberTaskDao;
+    private final TaskMemberDao memberTaskDao;
 
     public TasksWithMembersGetController(TaskMemberDao memberTaskDao) {
         this.memberTaskDao = memberTaskDao;

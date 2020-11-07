@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -118,11 +119,11 @@ public class HttpServer {
 
         Member member = new Member();
         String fullName = member.setName(requestParameter.getParameter("full_name"));
-        member.setName(URLDecoder.decode(fullName, "UTF-8"));
+        member.setName(URLDecoder.decode(fullName, StandardCharsets.UTF_8));
         String emailAddress = member.setEmail(requestParameter.getParameter("email_address"));
-        member.setEmail(URLDecoder.decode(emailAddress, "UTF-8"));
+        member.setEmail(URLDecoder.decode(emailAddress, StandardCharsets.UTF_8));
         memberDao.insert(member);
-        String body = "Member " + URLDecoder.decode(fullName, "UTF-8") + " added." + "\r\n";
+        String body = "Member " + URLDecoder.decode(fullName, StandardCharsets.UTF_8) + " added." + "\r\n";
         String response = "HTTP/1.1 302 Found\r\n" +
                 "Location: http://localhost:8080/index.html\r\n" +
                 "Connection: close\r\n" +
