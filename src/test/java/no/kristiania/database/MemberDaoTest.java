@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MemberDaoTest {
 
     private MemberDao memberDao;
-    private static Random random = new Random();
+    private static final Random random = new Random();
     private TaskDao taskDao;
 
     @BeforeEach
