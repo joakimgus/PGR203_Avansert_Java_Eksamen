@@ -4,14 +4,14 @@
 #### Beskrivelse av prosjektets funksjonalitet :
 Vi startet med å opprette repository fra innlevering 3 da vi allerede hadde implementert databaseaksess, og funksjon for å kunne legge til members og tasks.
 
-###### Bygg og test executable jar-fil :
+##### Bygg og test executable jar-fil :
 1. Kjør mvn package i terminal. (Eventuelt Maven -> lifecycle -> package, for å bygge en jar fil.)
 2. Kjør java -jar target/http-client-1.0-SNAPSHOT.jar i terminal for å starte programmet.
 
-###### Funksjonalitet :
-1. Etter programmet har startet via jar-filen som beskrevet over, vil løsningen kunne aksesseres i browser via localhost:8080/index.html.
+##### Funksjonalitet :
+Etter programmet har startet via jar-filen som beskrevet over, vil løsningen kunne aksesseres i browser via *localhost:8080/index.html, localhost:8080/, eller localhost:8080*.
 
-2. Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members, tasks, status, og assign_):
+Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members, tasks, status, og assign_):
 
 **Members**:
 - List members : *Listevisning av alle eksisterende members i databasen.*
@@ -29,45 +29,26 @@ Vi startet med å opprette repository fra innlevering 3 da vi allerede hadde imp
 - Add new status : *Side for å legge til ny status i databasen.*
 
 **Assign**:
-- Assign task to member : *Side for å tildele en task/member til member/task.*
-- Assign status to task : *Side for å tildele status/task til task/status.*
+- Assign task to member : *Side for å tildele en task/member til member/task. Dette gjøres ved å legge member id og task id som en foreign key i MemberTask tabellen ved bruk av SQLinjection. På grunn av at vi valgte å opprette en helt ny tabell for å samle member og task id kan vi da sortere både etter member og task*
+- Assign status to task : *Side for å tildele status/task til task/status, eller endre status på en task. Dette gjøres ved å legge status id som en foreign key i task tabellen ved bruk av SQLinjection.*
 
-- [ ] README-fil må dokumentere hvordan man bygger, konfigurerer og kjører løsningen.
-- [ ] README-fil må dokumentere designet på løsningen.
-- [ ] README-fil må beskrive erfaringene med arbeidet og løsningen.
 
-- [x] Opprett prosjektmedlem med navn og email -> Liste prosjektmedlemmer.
-- [x] Opprett ny prosjektoppgave med navn og status Tildel oppgave til prosjektmedlemmer.
-- [x] Liste opp prosjektoppgaver, inkludert status og tildelte prosjektmedlemmer.
-- [x] Endre oppgavestatus.
-- [x] Filtrere oppgaver per prosjektmedlem og status.
-- [x] Programmet kan liste prosjektdeltagere fra databasen
-- [x] Programmet lar bruker opprette nye prosjektdeltagere i databasen
-- [x] Programmet kan opprette og liste prosjektoppgaver fra databasen
-- [x] Programmet lar bruker tildele prosjektdeltagere til oppgaver
-- [x] Flere prosjektdeltagere kan tildeles til samme oppgave
-- [x] Programmet lar bruker endre status på en oppgave
-***
 
-###### Ekstra funksjonalitet :
-***
-- [x] Håndtering av request target "/"
-- [x] Avansert datamodell (mer enn 3 tabeller)
-- [x] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
-- [ ] Rammeverk rundt Http-håndtering (en god HttpMessage class med HttpRequest og HttpResponse subtyper) som gjenspeiler RFC7230
+**Ekstra funksjonalitet**:
 - [x] God bruk av DAO-pattern
 - [x] God bruk av Controller-pattern
+- [x] Håndtering av request target "/"
+- [x] Avansert datamodell (mer enn 3 tabeller)
 - [x] Korrekt håndtering av norske tegn i HTTP
 - [ ] Link til video med god demonstrasjon av ping-pong programmering
-- [ ] Automatisk rapportering av testdekning i Github Actions
-- [ ] Annet. ???- [x] Lar samme oppgave tildeles flere medlemmer, og liste oppgave per member.
-***
+- [x] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
+- [x] Lar samme oppgave tildeles flere medlemmer, og liste oppgaver etter member eller member etter oppgave.
 
-###### Java UML Class Diagram :
+##### Java UML Class Diagram :
 ![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/javaClassDiagram.png?raw=true)
 ***
 
-###### Database UML Diagram :
+##### Database UML Diagram :
 ![DatabaseDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/databaseDiagram.png?raw=true)
 ***
 
