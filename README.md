@@ -1,22 +1,37 @@
-## JAVA EKSAMEN
-
-###### Github Actions Badge :
-***
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-tinaeile/workflows/Java%20CI%20with%20Maven/badge.svg)
-***
+## PGR203 - Eksamen : Avansert Java
 
-###### Java UML Class Diagram :
-***
-![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/javaClassDiagram.png?raw=true)
-***
+#### Beskrivelse av prosjektets funksjonalitet :
+Vi startet med å opprette repository fra innlevering 3 da vi allerede hadde implementert databaseaksess, og funksjon for å kunne legge til members og tasks.
 
-###### Database UML Diagram :
-***
-![DatabaseDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/databaseDiagram.png?raw=true)
-***
+###### Bygg og test executable jar-fil :
+1. Kjør mvn package i terminal. (Eventuelt Maven -> lifecycle -> package, for å bygge en jar fil.)
+2. Kjør java -jar target/http-client-1.0-SNAPSHOT.jar i terminal for å starte programmet.
 
-###### Beskrivelse av prosjektets funksjonalitet :
-***
+###### Funksjonalitet :
+1. Etter programmet har startet via jar-filen som beskrevet over, vil løsningen kunne aksesseres i browser via localhost:8080/index.html.
+
+2. Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members, tasks, status, og assign_):
+
+**Members**:
+- List members : *Listevisning av alle eksisterende members i databasen.*
+- List members with tasks : *Listevisning av alle eksisterende members som er tildelt en eller flere tasks, og hvilken status hver task er tildelt. Denne visningen er sortert etter Members.*
+- Add new member : *Side for å kunne legge til flere members i databasen med både navn og e-post.*
+
+**Tasks**:
+- List members : *Listevisning av alle eksisterende tasks i databasen.*
+- List tasks with members: *Listevisning av alle eksisterende tasks tildelt members og status. Denne visningen er sortert etter Tasks.*
+- Add new task : *Side for å kunne legge til flere tasks i databasen med både tittel og beskrivelse.*
+
+**Status**:
+- List status : *Listevisning av alle eksisterende statuses i databasen.*
+- List statuses with tasks : *Listevisning sortert etter status, med alle tasks og members under hver status.*
+- Add new status : *Side for å legge til ny status i databasen.*
+
+**Assign**:
+- Assign task to member : *Side for å tildele en task/member til member/task.*
+- Assign status to task : *Side for å tildele status/task til task/status.*
+
 - [ ] README-fil må dokumentere hvordan man bygger, konfigurerer og kjører løsningen.
 - [ ] README-fil må dokumentere designet på løsningen.
 - [ ] README-fil må beskrive erfaringene med arbeidet og løsningen.
@@ -46,6 +61,14 @@
 - [ ] Link til video med god demonstrasjon av ping-pong programmering
 - [ ] Automatisk rapportering av testdekning i Github Actions
 - [ ] Annet. ???- [x] Lar samme oppgave tildeles flere medlemmer, og liste oppgave per member.
+***
+
+###### Java UML Class Diagram :
+![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/javaClassDiagram.png?raw=true)
+***
+
+###### Database UML Diagram :
+![DatabaseDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/databaseDiagram.png?raw=true)
 ***
 
 **SJEKKLISTE**
