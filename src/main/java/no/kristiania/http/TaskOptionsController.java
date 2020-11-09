@@ -4,13 +4,13 @@ import no.kristiania.database.Task;
 import no.kristiania.database.TaskDao;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class TaskOptionsController implements HttpController {
-    private TaskDao taskDao;
+    private final TaskDao taskDao;
 
     public TaskOptionsController(TaskDao taskDao) {
         this.taskDao = taskDao;
@@ -22,10 +22,10 @@ public class TaskOptionsController implements HttpController {
         response.write(clientSocket);
     }
 
-    public String getBody() throws SQLException, UnsupportedEncodingException {
+    public String getBody() throws SQLException {
         String body = "";
         for (Task task : taskDao.list()) {
-            body += "<option value=" + task.getId() + ">" + URLDecoder.decode(task.getTitle(), "utf-8") + "</option>";
+            body += "<option value=" + task.getId() + ">" + URLDecoder.decode(task.getTitle(), StandardCharsets.UTF_8) + "</option>";
         }
         return body;
     }

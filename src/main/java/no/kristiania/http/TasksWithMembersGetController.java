@@ -1,15 +1,15 @@
 package no.kristiania.http;
 
-import no.kristiania.database.*;
+import no.kristiania.database.MemberTask;
+import no.kristiania.database.TaskMemberDao;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.List;
 
 public class TasksWithMembersGetController implements HttpController{
-    private TaskMemberDao memberTaskDao;
+    private final TaskMemberDao memberTaskDao;
 
     public TasksWithMembersGetController(TaskMemberDao memberTaskDao) {
         this.memberTaskDao = memberTaskDao;

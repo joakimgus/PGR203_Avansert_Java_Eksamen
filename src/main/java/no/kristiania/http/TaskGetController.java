@@ -6,10 +6,11 @@ import no.kristiania.database.TaskDao;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class TaskGetController implements HttpController {
-    private TaskDao taskDao;
+    private final TaskDao taskDao;
 
     public TaskGetController(TaskDao taskDao) {
         this.taskDao = taskDao;
@@ -19,7 +20,7 @@ public class TaskGetController implements HttpController {
     public void handle(HttpMessage request, Socket clientSocket) throws IOException, SQLException {
         String body = "<ul>";
         for (Task task : taskDao.list()) {
-                body += "<li>Title: " + URLDecoder.decode(task.getTitle(), "UTF-8") + "<br>" +
+                body += "<li>Title: " + URLDecoder.decode(task.getTitle(), StandardCharsets.UTF_8) + "<br>" +
                         task.getDescription() + "<br>______________________________<br>" + "</li>";
         }
 

@@ -6,6 +6,7 @@ import no.kristiania.database.TaskDao;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 public class TaskPostController implements HttpController {
@@ -22,9 +23,9 @@ public class TaskPostController implements HttpController {
 
         Task task = new Task();
         String taskTitle = task.setTitle(requestParameter.getParameter("taskTitle"));
-        task.setTitle(URLDecoder.decode(taskTitle, "UTF-8"));
+        task.setTitle(URLDecoder.decode(taskTitle, StandardCharsets.UTF_8));
         String taskDescription = task.setDescription(requestParameter.getParameter("taskDescription"));
-        task.setDescription(URLDecoder.decode(taskDescription, "UTF-8"));
+        task.setDescription(URLDecoder.decode(taskDescription, StandardCharsets.UTF_8));
         taskDao.insert(task);
 
         String body = "Task " + "added." + "\r\n";

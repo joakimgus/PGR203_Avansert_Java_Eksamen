@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class HttpServer {
                 "/api/tasks", new TaskPostController(taskDao),
                 "/api/newStatus", new StatusPostController(statusDao),
                 "/api/addStatusToTask", new UpdateTaskController(taskDao),
-                "/api/addMemberTask", new MembersWithTasksPostController(memberDao, taskDao, memberTaskDao)
+                "/api/addMemberTask", new MembersWithTasksPostController(memberTaskDao)
         );
 
         getControllers = Map.of(
@@ -92,19 +93,24 @@ public class HttpServer {
                 getController(requestPath).handle(request, clientSocket);
             }
         } else {
-            if (requestPath.equals("/")) {
-                handleSlashRequest(clientSocket);
-            } else if (requestPath.equals("/echo")) {
-                handleEchoRequest(clientSocket, requestTarget, questionPos);
-            } else if (requestPath.equals("/api/members")) {
-                handleGetMembers(clientSocket);
-            } else {
-                HttpController controller = getControllers.get(requestPath);
-                if (controller != null) {
-                    controller.handle(request, clientSocket);
-                } else {
-                    handleFileRequest(clientSocket, requestPath);
-                }
+            switch (requestPath) {
+                case "/":
+                    handleSlashRequest(clientSocket);
+                    break;
+                case "/echo":
+                    handleEchoRequest(clientSocket, requestTarget, questionPos);
+                    break;
+                case "/api/members":
+                    handleGetMembers(clientSocket);
+                    break;
+                default:
+                    HttpController controller = getControllers.get(requestPath);
+                    if (controller != null) {
+                        controller.handle(request, clientSocket);
+                    } else {
+                        handleFileRequest(clientSocket, requestPath);
+                    }
+                    break;
             }
         }
     }
@@ -118,11 +124,11 @@ public class HttpServer {
 
         Member member = new Member();
         String fullName = member.setName(requestParameter.getParameter("full_name"));
-        member.setName(URLDecoder.decode(fullName, "UTF-8"));
+        member.setName(URLDecoder.decode(fullName, StandardCharsets.UTF_8));
         String emailAddress = member.setEmail(requestParameter.getParameter("email_address"));
-        member.setEmail(URLDecoder.decode(emailAddress, "UTF-8"));
+        member.setEmail(URLDecoder.decode(emailAddress, StandardCharsets.UTF_8));
         memberDao.insert(member);
-        String body = "Member " + URLDecoder.decode(fullName, "UTF-8") + " added." + "\r\n";
+        String body = "Member " + URLDecoder.decode(fullName, StandardCharsets.UTF_8) + " added." + "\r\n";
         String response = "HTTP/1.1 302 Found\r\n" +
                 "Location: http://localhost:8080/index.html\r\n" +
                 "Connection: close\r\n" +
@@ -228,7 +234,7 @@ public class HttpServer {
         logger.info("Using database {}", dataSource.getUrl());
         Flyway.configure().dataSource(dataSource).load().migrate();
 
-        HttpServer server = new HttpServer(8080, dataSource);
+        new HttpServer(8080, dataSource);
         logger.info("Started on http://localhost:{}/index.html", 8080);
     }
 
