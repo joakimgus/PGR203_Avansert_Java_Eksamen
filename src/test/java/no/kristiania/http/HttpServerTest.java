@@ -120,4 +120,14 @@ class HttpServerTest {
         HttpClient getClient = new HttpClient("localhost", server.getPort(), "/api/tasks");
         assertThat(getClient.getResponseBody()).contains("Oppgave 1");
     }
+
+    @Test
+    void shouldPostNewStatus() throws IOException {
+        String requestBody = "statusName=Unassigned";
+        HttpClient postClient = new HttpClient("localhost", server.getPort(), "/api/newStatus", "POST", requestBody);
+        assertEquals(302, postClient.getStatusCode());
+
+        HttpClient getClient = new HttpClient("localhost", server.getPort(), "/api/status");
+        assertThat(getClient.getResponseBody()).contains("Unassigned");
+    }
 }
