@@ -12,7 +12,7 @@ Vi startet med å opprette repository fra innlevering 3 da vi allerede hadde imp
 ##### Funksjonalitet :
 Etter programmet har startet via jar-filen som beskrevet over, vil løsningen kunne aksesseres i browser via *localhost:8080/index.html, localhost:8080/, eller localhost:8080*.
 
-*NB! Om jar filen kjøres i Windows vil ikke denne decodes med UTF-8, da windows operativsystemet ikke har UTF-8 som default. Det kan virke som UTF-8 må spesifiseres ved execution av .jar til tross for at vi implementerte UTF-8 decoding. Dette vil kun være et problem om det kjøres via .jar, mens alt ser ut til å fungere utmerket når det kjøres via f.eks. intelliJ.*
+**_NB!_** Om jar filen kjøres i Windows vil ikke denne decodes med UTF-8, da windows operativsystemet ikke har UTF-8 som default. Det kan virke som UTF-8 må spesifiseres ved execution av .jar til tross for at vi implementerte UTF-8 decoding. Dette vil kun være et problem om det kjøres via .jar, mens alt ser ut til å fungere utmerket når det kjøres via f.eks. intelliJ.*
 
 Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members, tasks, status, og assign_):
 
