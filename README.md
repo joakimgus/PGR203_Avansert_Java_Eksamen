@@ -1,18 +1,21 @@
 ## JAVA EKSAMEN
+
+###### Github Actions Badge :
 ***
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-tinaeile/workflows/Java%20CI%20with%20Maven/badge.svg)
+***
 
-### Java UML Class Diagram :
+###### Java UML Class Diagram :
 ***
 ![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/javaClassDiagram.png?raw=true)
 ***
 
-### Database UML Diagram :
+###### Database UML Diagram :
 ***
 ![DatabaseDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/databaseDiagram.png?raw=true)
 ***
 
-### Beskrivelse av prosjektets funksjonalitet :
+###### Beskrivelse av prosjektets funksjonalitet :
 ***
 - [ ] README-fil må dokumentere hvordan man bygger, konfigurerer og kjører løsningen.
 - [ ] README-fil må dokumentere designet på løsningen.
@@ -31,7 +34,7 @@
 - [x] Programmet lar bruker endre status på en oppgave
 ***
 
-### Ekstra funksjonalitet :
+###### Ekstra funksjonalitet :
 ***
 - [x] Håndtering av request target "/"
 - [x] Avansert datamodell (mer enn 3 tabeller)
@@ -44,9 +47,6 @@
 - [ ] Automatisk rapportering av testdekning i Github Actions
 - [ ] Annet. ???- [x] Lar samme oppgave tildeles flere medlemmer, og liste oppgave per member.
 ***
-
-###
-
 
 **SJEKKLISTE**
 - [ ] Oppgaven skal leveres i Wiseflow som en ZIP-fil og link til Github Classroom.
