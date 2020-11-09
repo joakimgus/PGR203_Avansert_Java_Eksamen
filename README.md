@@ -1,3 +1,5 @@
+Link til GitHub repository: https://github.com/kristiania/pgr203eksamen-tinaeile
+
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-tinaeile/workflows/Java%20CI%20with%20Maven/badge.svg)
 ***
 ## PGR203 - Eksamen : Avansert Java
