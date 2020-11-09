@@ -32,8 +32,6 @@ Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members
 - Assign task to member : *Side for å tildele en task/member til member/task. Dette gjøres ved å legge member id og task id som en foreign key i MemberTask tabellen ved bruk av SQLinjection. På grunn av at vi valgte å opprette en helt ny tabell for å samle member og task id kan vi da sortere både etter member og task*
 - Assign status to task : *Side for å tildele status/task til task/status, eller endre status på en task. Dette gjøres ved å legge status id som en foreign key i task tabellen ved bruk av SQLinjection.*
 
-
-
 **Ekstra funksjonalitet**:
 - [x] God bruk av DAO-pattern
 - [x] God bruk av Controller-pattern
@@ -44,11 +42,15 @@ Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members
 - [x] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
 - [x] Lar samme oppgave tildeles flere medlemmer, og liste oppgaver etter member eller member etter oppgave.
 
-##### Java UML Class Diagram :
-![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/javaClassDiagram.png?raw=true)
+##### UML http :
+![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/UMLHttp.png?raw=true)
+
+##### UML Dao :
+
+![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/UMLDao.png?raw=true)
 ***
 
-##### Database UML Diagram :
+##### UML Database :
 ![DatabaseDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/databaseDiagram.png?raw=true)
 ***
 
