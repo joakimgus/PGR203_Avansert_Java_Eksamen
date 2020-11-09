@@ -12,19 +12,16 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    steps:
-     - install: gem install coveralls-lcov
-     - before_script:
+  
+    install: gem install coveralls-lcov
+    before_script:
                       ./autogen.sh
                       ./configure --enable-coverage
-              script: make check
-        after_success:
+    after_success:
                       lcov --compat-libtool --directory . --capture --output-file coverage.info
                       coveralls-lcov coverage.info
 
-    - uses: actions/checkout@v1
-
-    - name: Coveralls
+      name: Coveralls
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
