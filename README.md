@@ -43,7 +43,7 @@ Alle POST requests omdirigerer deg tilbake til Menysiden, og alle sidene har en 
 - [x] Håndtering av request target "/"
 - [x] Avansert datamodell (mer enn 3 tabeller)
 - [x] Korrekt håndtering av norske tegn i HTTP
-- [ ] Link til video med god demonstrasjon av ping-pong programmering
+- [x] Link til video med demonstrasjon av parprogrammering
 - [x] UML diagram som dokumenterer datamodell og/eller arkitektur (presentert i README.md)
 - [x] Lar samme oppgave tildeles flere medlemmer, og liste oppgaver etter member eller member etter oppgave.
 ***
@@ -66,34 +66,23 @@ Vi føler begge vi har lært mye av prinsippene rundt HTTP og JBDC ved å jobbe 
 
 Emnet introduserte oss tidlig for parprogrammering, noe vi har benyttet oss flittig av gjennom alle arbeidskravene og eksamen. Vi føler begge vi har fått godt utbytte av å programmere sammen, og bruk av gitHub og discord har vært vital for gjennomførelsen av prosjektet. Vi føler vi har utnyttet den tiden vi fikk til dispensasjon godt.
 
-*INSERT YOUTUBELINK HERE*
+Link til parprogrammering:
+*https://youtu.be/ly9azH3phkE*
 
 Da vi først begynte å jobbe med prosjektet var vi begge litt rådeløse, men dette hentet seg raskt opp. Vi føler vi har fått gjort mye mer enn vi i utgangspunktet trodde vi skulle klare, og er meget fornøyd med sluttresultatet.
 
 Da vi utviklet løsningen vår for å kunne tildele members tasks og omvendt, for så å filtrere etter både task og member, bestemte vi oss for å samle disse verdiene i en egen tabell, noe som er en litt annen løsning en den vi ble introdusert for i bonusforelesningen. Vi kom opp med løsningen før implementasjon av filtrering ble vist i bonusforelesning, så vi bestemte oss for å gå for den løsningen vi hadde laget helt selv, da det er denne vi er mest stolte av.
 
-Vi har også implementert URLDecoding i koden vår, men som nevnt over vil man kunne støte på et problem om man kjører jar-filen på en windowsmaskin uten å spesifisere UTF-8 som default.
+Vi er også fornøyde med konsistent bruk av begreper, navngivning av klasser, løsningen vår av å splitte opp controllerne etter POST og GET da Map.of ikke lot oss ha mer enn 10 kontrollere.
+
+Vi har implementert URLDecoding i koden vår, men som nevnt over vil man kunne støte på et problem om man kjører jar-filen på en windowsmaskin uten å spesifisere UTF-8 som default.
 
 **SJEKKLISTE**
 - [ ] Oppgaven skal leveres i Wiseflow som en ZIP-fil og link til Github Classroom.
-- [ ] README.md på Github skal linke til Github Actions som skal kjøre enhetstester uten feil. README-filen skal også inneholde link til gitt tilbakemelding til annet team, et UML-diagram samt beskrivelse av hva kandiditene ønskes skal vurderes i evalueringen av innleveringen.
 
 **Prosjektet må følge god programmeringsskikk. Dette er viktige krav og feil på et enkelt punkt kan gi en hel karakter i trekk.**
-- [x] Koden skal følge standard Java-konvensjoner med hensyn til store og små bokstaver og indentering Koden skal utvikles på Git, med Maven og kjøre tester på Github Actions.
 - [ ] Koden skal ha god testdekning.
-- [x] Det skal ikke forekomme SQL Injection feil.
-- [x] Databasepassord skal være konfigurert i en fil som ikke sjekkes inn i git.
-- [x] Maven skal bygge en executable jar som inneholder HTML-koden og som referer til pgr203.properties i current working directory.
-- [x] God abstraksjon for eksempel DAO eller Controller-klasser gir bonuspoeng. Konsistent bruk av begreper og kode vektlegges. Brukervennlighet er ikke et vurderingskriterie for karakteren.
 
 **Vedlegg: Sjekkliste for innlevering**
 - [ ] Dere har lastet opp en ZIP-fil med navn basert på navnet på deres Github repository
-- [x] Koden er sjekket inn på github.com/kristiania-repository
-- [x] Dere har committed kode med begge prosjektdeltagernes GitHub konto (alternativt: README beskriver arbeidsform)
-- [ ] mvn package bygger en executable jar-fil
 - [ ] Koden inneholder et godt sett med tester
-- [ ] java -jar target/...jar (etter mvn package ) lar bruker legge til og liste ut data fra databasen via webgrensesnitt
-- [x] Programmet leser dataSource.url , dataSource.username og dataSource.password fra pgr203.properties for å connecte til databasen
-- [x] Programmet bruker Flywaydb for å sette opp databaseskjema
-- [x] Server skriver nyttige loggmeldinger, inkludert informasjon om hvilken URL den kjører på ved oppstart
-- [ ] README.md beskriver eventuell ekstra leveranse utover minimum
