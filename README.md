@@ -1,4 +1,5 @@
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-tinaeile/workflows/Java%20CI%20with%20Maven/badge.svg)
+***
 ## PGR203 - Eksamen : Avansert Java
 
 #### Beskrivelse av prosjektets funksjonalitet :
@@ -48,7 +49,6 @@ Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members
 ##### UML Dao :
 
 ![ClassDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/UMLDao.png?raw=true)
-***
 
 ##### UML Database :
 ![DatabaseDiagram](https://github.com/kristiania/pgr203eksamen-tinaeile/blob/master/docs/databaseDiagram.png?raw=true)
