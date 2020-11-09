@@ -79,13 +79,3 @@ Da vi utviklet løsningen vår for å kunne tildele members tasks og omvendt, fo
 Vi er også fornøyde med konsistent bruk av begreper, navngivning av klasser, løsningen vår av å splitte opp controllerne etter POST og GET da Map.of ikke lot oss ha mer enn 10 kontrollere.
 
 Vi har implementert URLDecoding i koden vår, men som nevnt over vil man kunne støte på et problem om man kjører jar-filen på en windowsmaskin uten å spesifisere UTF-8 som default.
-
-**SJEKKLISTE**
-- [ ] Oppgaven skal leveres i Wiseflow som en ZIP-fil og link til Github Classroom.
-
-**Prosjektet må følge god programmeringsskikk. Dette er viktige krav og feil på et enkelt punkt kan gi en hel karakter i trekk.**
-- [ ] Koden skal ha god testdekning.
-
-**Vedlegg: Sjekkliste for innlevering**
-- [ ] Dere har lastet opp en ZIP-fil med navn basert på navnet på deres Github repository
-- [ ] Koden inneholder et godt sett med tester
