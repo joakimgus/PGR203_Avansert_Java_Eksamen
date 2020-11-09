@@ -7,7 +7,8 @@ Vi startet med å opprette repository fra innlevering 3 da vi allerede hadde imp
 
 ##### Bygg og test executable jar-fil :
 1. Kjør mvn package i terminal. (Eventuelt Maven -> lifecycle -> package, for å bygge en jar fil.)
-2. Kjør java -jar target/http-client-1.0-SNAPSHOT.jar i terminal for å starte programmet.
+2. Når du har bygget jar-filen trenger du å legge pgr203.properties fila sammen med den for at programmet skal kunne kjøres. Denne fila må inneholde brukernavn, passord og din database URL.
+3. Kjør java -jar target/http-client-1.0-SNAPSHOT.jar i terminal for å starte programmet.
 
 ##### Funksjonalitet :
 Etter programmet har startet via jar-filen som beskrevet over, vil løsningen kunne aksesseres i browser via *localhost:8080/index.html, localhost:8080/, eller localhost:8080*.
