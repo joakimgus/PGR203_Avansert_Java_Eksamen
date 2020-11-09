@@ -14,22 +14,22 @@ Etter programmet har startet via jar-filen som beskrevet over, vil løsningen ku
 
 Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members, tasks, status, og assign_):
 
-**Members**:
+##### **Members**:
 - List members : *Listevisning av alle eksisterende members i databasen.*
 - List members with tasks : *Listevisning av alle eksisterende members som er tildelt en eller flere tasks, og hvilken status hver task er tildelt. Denne visningen er sortert etter Members.*
 - Add new member : *Side for å kunne legge til flere members i databasen med både navn og e-post.*
 
-**Tasks**:
+##### **Tasks**:
 - List members : *Listevisning av alle eksisterende tasks i databasen.*
 - List tasks with members: *Listevisning av alle eksisterende tasks tildelt members og status. Denne visningen er sortert etter Tasks.*
 - Add new task : *Side for å kunne legge til flere tasks i databasen med både tittel og beskrivelse.*
 
-**Status**:
+##### **Status**:
 - List status : *Listevisning av alle eksisterende statuses i databasen.*
 - List statuses with tasks : *Listevisning sortert etter status, med alle tasks og members under hver status.*
 - Add new status : *Side for å legge til ny status i databasen.*
 
-**Assign**:
+##### **Assign**:
 - Assign task to member : *Side for å tildele en task/member til member/task. Dette gjøres ved å legge member id og task id som en foreign key i MemberTask tabellen ved bruk av SQLinjection. På grunn av at vi valgte å opprette en helt ny tabell for å samle member og task id kan vi da sortere både etter member og task*
 - Assign status to task : *Side for å tildele status/task til task/status, eller endre status på en task. Dette gjøres ved å legge status id som en foreign key i task tabellen ved bruk av SQLinjection.*
 
