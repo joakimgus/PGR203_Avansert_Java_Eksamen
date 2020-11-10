@@ -12,14 +12,14 @@ Vi startet med å opprette repository fra innlevering 3 da vi allerede hadde imp
 2. Når du har bygget jar-filen trenger du å legge pgr203.properties fila sammen med den for at programmet skal kunne kjøres. Denne fila må inneholde brukernavn, passord og din database URL.
 3. Kjør java -jar target/http-client-1.0-SNAPSHOT.jar i terminal for å starte programmet.
 
-##### Funksjonalitet :
-Etter programmet har startet via jar-filen som beskrevet over, vil løsningen kunne aksesseres i browser via *localhost:8080/index.html, localhost:8080/, eller localhost:8080*.
-
 **_NB!_**
 _Om jar filen kjøres i Windows vil ikke denne decodes med UTF-8, da windows operativsystemet ikke har UTF-8 som default._
 _Det kan virke som UTF-8 må spesifiseres ved execution av .jar til tross for at vi implementerte UTF-8 decoding._
 **fiks for windows -> java -Dfile.encoding="UTF-8" -jar http-client-1.0-SNAPSHOT.jar**
 _Dette vil kun være et problem om det kjøres via .jar, mens alt ser ut til å fungere utmerket når det kjøres via f.eks. intelliJ._
+
+##### Funksjonalitet :
+Etter programmet har startet via jar-filen som beskrevet over, vil løsningen kunne aksesseres i browser via *localhost:8080/index.html, localhost:8080/, eller localhost:8080*.
 
 Inne på siden vil man få opp en listemeny bestående av 4 hoveddeler (_members, tasks, status, og assign_):
 
