@@ -2,7 +2,8 @@ Link til GitHub repository: https://github.com/kristiania/pgr203eksamen-tinaeile
 
 ![Java CI with Maven](https://github.com/kristiania/pgr203eksamen-tinaeile/workflows/Java%20CI%20with%20Maven/badge.svg)
 ***
-## PGR203 - Eksamen : Avansert Java
+## PGR203-Exam : Advanced Java Programming
+*Exam in Advanced Java Programming from 3rd semester*
 
 #### Beskrivelse av prosjektets funksjonalitet :
 Vi startet med å opprette repository fra innlevering 3 da vi allerede hadde implementert databaseaksess, og funksjon for å kunne legge til members og tasks.
